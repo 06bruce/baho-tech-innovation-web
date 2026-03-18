@@ -1,5 +1,5 @@
 import ceoImage from "../../../images/ceo.png";
-import corailImage from "../../../images/Untitled design(1).png";
+import corailImage from "../../../images/corail.png";
 import zainabImage from "../../../images/zainab.png";
 
 export type TeamMember = {
