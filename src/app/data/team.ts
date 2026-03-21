@@ -1,6 +1,10 @@
 import ceoImage from "../../../images/ceo.png";
 import corailImage from "../../../images/corail.png";
 import zainabImage from "../../../images/zainab.png";
+import marthaImage from "../../../images/martha.png";
+import gislaineImage from "../../../images/gislaine.png";
+
+
 
 export type TeamMember = {
   slug: string;
@@ -46,7 +50,7 @@ export const teamMembers: TeamMember[] = [
       "Her day‑to‑day work includes component design, performance tuning, and responsive layouts. She translates complex workflows into clean, intuitive UI flows that help users complete tasks confidently.",
       "Martha works side‑by‑side with designers and researchers to test prototypes with real users, ensuring that each interaction feels natural across devices and assistive technologies."
     ],
-    image: "https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=900&h=900&fit=crop"
+    image: marthaImage
   },
   {
     slug: "zainab-elmukshfi",
@@ -70,7 +74,8 @@ export const teamMembers: TeamMember[] = [
       "Her role covers building reusable UI components, refactoring legacy interfaces, and collaborating with QA to validate accessibility compliance. She takes pride in the details that users might never notice—but would immediately feel if they were missing.",
       "Gislaine’s mindset is simple: if an interface works smoothly for the most vulnerable user, it will work better for everyone."
     ],
-    image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=900&h=900&fit=crop"
+    image: gislaineImage
+
   },
   {
     slug: "johnson-tumwebaze",
