@@ -77,23 +77,23 @@ export function Services() {
 
   const products = [
     {
-      id: "voice-assistant",
+      id: "Echo",
       icon: <Mic className="w-12 h-12" />,
-      title: "Baho Voice Assistant",
+      title:"Baho tech voice to text",
       description: "AI-powered voice assistant designed for accessibility.",
       details: "Our flagship voice assistant uses advanced AI to provide hands-free control of devices, read content aloud, and assist with daily tasks. Specifically designed for users with visual or motor impairments, it features natural language processing, context awareness, and seamless integration with popular apps and services."
     },
     {
-      id: "screen-reader",
+      id: "Talka",
       icon: <Eye className="w-12 h-12" />,
-      title: "Screen Reader Plus",
+      title: "Talka",
       description: "Next-generation screen reader with enhanced features.",
       details: "Screen Reader Plus goes beyond traditional screen readers with AI-powered image description, intelligent content summarization, and customizable reading preferences. It supports multiple languages, works across web and desktop applications, and includes advanced navigation shortcuts for power users."
     },
     {
-      id: "mobility-app",
+      id: "SBS",
       icon: <Navigation className="w-12 h-12" />,
-      title: "Mobility Navigator",
+      title: "Smart blind stick",
       description: "Accessible navigation app for people with mobility challenges.",
       details: "Mobility Navigator provides wheelchair-accessible route planning, real-time accessibility information about buildings and public spaces, and community-contributed accessibility reviews. Features include step-free routing, automatic ramp detection, and integration with public transit accessibility data."
     }

@@ -128,6 +128,37 @@
     @apply bg-background text-foreground;
   }
 
+  body {
+    transition: background-color 180ms ease, color 180ms ease;
+  }
+
+  .dark body {
+    background: #071A2D;
+    color: #f8fafc;
+  }
+
+  .dark header,
+  .dark footer {
+    color: #f8fafc;
+  }
+
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color-scheme: dark;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
   /**
   * Default typography styles for HTML elements (h1-h4, p, label, button, input).
   * These are in @layer base, so Tailwind utility classes (like text-sm, text-lg) automatically override them.

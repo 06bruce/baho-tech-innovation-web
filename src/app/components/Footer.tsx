@@ -1,10 +1,21 @@
 import { Link } from "react-router";
 import { Facebook, Twitter, Linkedin, Instagram, Mail } from "lucide-react";
 import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
+import footerBackgroundSrc from "../../../images/footer.png";
 
 export function Footer() {
   return (
-    <footer className="relative bg-gray-900 text-white">
+    <footer className="relative overflow-hidden bg-gray-900 text-white">
+      <div
+        className="absolute inset-0 bg-contain bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${footerBackgroundSrc})` }}
+        aria-hidden="true"
+      />
+      <div
+        className="absolute inset-0 bg-[#08131b]/82"
+        aria-hidden="true"
+      />
+
       {/* Curved Top Border */}
       <div className="absolute top-0 left-0 w-full overflow-hidden leading-none">
         <svg className="relative block w-full h-16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
@@ -12,7 +23,7 @@ export function Footer() {
         </svg>
       </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Company Info */}
           <div>

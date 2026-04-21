@@ -3,6 +3,7 @@ import corailImage from "../../../images/corail.png";
 import zainabImage from "../../../images/zainab.png";
 import marthaImage from "../../../images/martha.png";
 import gislaineImage from "../../../images/gislaine.png";
+import norahImage from "../../../images/norah.png";
 
 
 
@@ -88,5 +89,53 @@ export const teamMembers: TeamMember[] = [
       "Johnson’s approach emphasizes legibility, contrast, and simplicity. He believes strong visual design should help users focus on what matters most."
     ],
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&h=900&fit=crop"
+  },
+  {
+    slug: "mugisha-ineza-nora",
+    name: "Mugisha Ineza Nora",
+    role: "Embedded Systems Engineer",
+    bio: "Designing dependable embedded solutions that connect hardware innovation with accessible technology.",
+    story: [
+      "Nora develops embedded systems that make assistive hardware more responsive, durable, and practical in everyday environments. She works across prototyping, sensor integration, and device optimization to ensure each system performs reliably in real-world use.",
+      "Her work focuses on bridging software intelligence with physical products, helping Baho Tech build solutions that are efficient, safe, and easy to maintain. She pays close attention to power usage, performance stability, and how devices behave under continuous operation.",
+      "Nora brings an engineering mindset rooted in precision and long-term reliability. She sees embedded technology as a powerful way to expand access, especially when hardware is designed with users' lived needs in mind from the start."
+    ],
+    image: norahImage
+  },
+  {
+    slug: "mugisha-valentin",
+    name: "Mugisha Valentin",
+    role: "CFO",
+    bio: "Guiding Baho Tech's financial strategy with a focus on sustainable growth and operational discipline.",
+    story: [
+      "Valentin leads financial planning and resource strategy to keep Baho Tech growing on a strong foundation. He manages budgeting, forecasting, and investment priorities to ensure the company can scale responsibly while staying focused on impact.",
+      "He works closely with leadership to align financial decisions with product development, hiring, and long-term business goals. His approach emphasizes clarity, accountability, and making smart choices that support both innovation and stability.",
+      "Valentin believes sound financial stewardship creates room for bold ideas to succeed. By building healthy systems behind the scenes, he helps the team deliver accessible technology with confidence and consistency."
+    ],
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=900&h=900&fit=crop"
+  },
+  {
+    slug: "muganwa-rogers",
+    name: "Muganwa Rogers",
+    role: "Operations Manager",
+    bio: "Keeping teams, workflows, and delivery aligned so ideas move smoothly from planning to execution.",
+    story: [
+      "Rogers coordinates day-to-day operations to help Baho Tech move with focus and consistency. He supports cross-team planning, timelines, and process improvements that reduce friction and keep important work on track.",
+      "His role connects strategy with execution, making sure communication stays clear across departments and that operational systems support the team's pace of growth. He pays attention to the details that help projects stay organized, measurable, and dependable.",
+      "Rogers values structure that empowers people rather than slowing them down. He sees strong operations as the quiet engine behind great products, partnerships, and customer experiences."
+    ],
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=900&h=900&fit=crop"
+  },
+  {
+    slug: "nshuti-shyaka-bruce",
+    name: "Nshuti Shyaka Bruce",
+    role: "DevOps & Backend Engineer",
+    bio: "Building the infrastructure and backend systems that keep products secure, scalable, and continuously available.",
+    story: [
+      "Bruce works across backend engineering and DevOps to ensure Baho Tech's platforms are reliable from code to deployment. He designs services, automates delivery pipelines, and strengthens infrastructure so releases can move quickly without sacrificing stability.",
+      "His focus includes cloud operations, deployment workflows, observability, and backend performance. He helps the team maintain resilient environments where products can scale smoothly and issues can be detected before they affect users.",
+      "Bruce approaches systems engineering with a strong reliability mindset. For him, good infrastructure is invisible at its best: secure, efficient, and always ready to support the people who depend on it."
+    ],
+    image: "https://images.unsplash.com/photo-1504257432389-52343af06ae3?w=900&h=900&fit=crop"
   }
 ];

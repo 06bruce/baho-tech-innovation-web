@@ -1,12 +1,47 @@
 import { Link } from "react-router";
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
-import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
+import {
+  Menu,
+  X,
+  ChevronDown,
+  House,
+  Target,
+  Flag,
+  Eye,
+  Users,
+  Briefcase,
+  Cpu,
+  Palette,
+  Mic,
+  AudioLines,
+  MapPinned,
+  Contact,
+  LogIn,
+  UserPlus,
+  LayoutDashboard,
+} from "lucide-react";
+import { useAuth } from "../hooks/useAuth";
+import { getDashboardPathForDisability } from "../utils/disability";
+import { LanguageSwitcher } from "./LanguageSwitcher";
+import { ThemeToggle } from "./ThemeToggle";
+import { useTranslation } from "react-i18next";
+import logoSrc from "/home/zera/Documents/Baho Tech Website Redesign/images/Radiant Sun with Interlocking Arrow Logo.png";
 
 export function Header() {
+  const { t } = useTranslation();
+  const { user, isAuthenticated } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [aboutDropdownOpen, setAboutDropdownOpen] = useState(false);
   const [servicesDropdownOpen, setServicesDropdownOpen] = useState(false);
+  const dashboardPath =
+    user?.role === "admin" ? "/admin/dashboard" : getDashboardPathForDisability(user?.disabilityCategory);
+
+  const linkBaseClass =
+    "flex items-center gap-2 rounded-full px-4 py-2 text-gray-700 transition-colors hover:text-[#1C5B78]";
+  const dropdownPanelClass =
+    "absolute top-full left-0 z-20 w-64 rounded-3xl border border-[#d8e4ec] bg-white/95 p-3 shadow-xl backdrop-blur-md";
+  const dropdownItemClass =
+    "flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium text-gray-700 transition-all hover:bg-[#1C5B78] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1C5B78]/30";
 
   return (
     <header className="sticky top-0 bg-white shadow-md z-50">
@@ -24,32 +59,56 @@ export function Header() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="text-gray-700 hover:text-[#1C5B78] transition-colors">
-              Home
+            <Link to="/" className={linkBaseClass}>
+              <House className="h-4 w-4" />
+              {t("nav.home")}
             </Link>
 
             {/* About Us Dropdown */}
             <div
-              className="relative"
+              className="relative pb-4 -mb-4"
               onMouseEnter={() => setAboutDropdownOpen(true)}
               onMouseLeave={() => setAboutDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-gray-700 hover:text-[#1C5B78] transition-colors">
-                <span>About Us</span>
+              <button
+                className={`${linkBaseClass} cursor-pointer`}
+                onFocus={() => setAboutDropdownOpen(true)}
+              >
+                <span>{t("nav.about")}</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
               {aboutDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-52 bg-white/95 backdrop-blur-md border border-gray-200 shadow-xl rounded-xl py-2 overflow-hidden">
-                  <Link to="/about#mission" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                <div className={`${dropdownPanelClass} mt-1`}>
+                  <Link
+                    to="/about#mission"
+                    className={dropdownItemClass}
+                    onClick={() => setAboutDropdownOpen(false)}
+                  >
+                    <Target className="h-4 w-4 shrink-0" />
                     Mission
                   </Link>
-                  <Link to="/about#goals" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/about#goals"
+                    className={dropdownItemClass}
+                    onClick={() => setAboutDropdownOpen(false)}
+                  >
+                    <Flag className="h-4 w-4 shrink-0" />
                     Goals
                   </Link>
-                  <Link to="/about#vision" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/about#vision"
+                    className={dropdownItemClass}
+                    onClick={() => setAboutDropdownOpen(false)}
+                  >
+                    <Eye className="h-4 w-4 shrink-0" />
                     Vision
                   </Link>
-                  <Link to="/about#team" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/about#team"
+                    className={dropdownItemClass}
+                    onClick={() => setAboutDropdownOpen(false)}
+                  >
+                    <Users className="h-4 w-4 shrink-0" />
                     Team
                   </Link>
                 </div>
@@ -58,51 +117,108 @@ export function Header() {
 
             {/* Services Dropdown */}
             <div
-              className="relative"
+              className="relative pb-4 -mb-4"
               onMouseEnter={() => setServicesDropdownOpen(true)}
               onMouseLeave={() => setServicesDropdownOpen(false)}
             >
-              <button className="flex items-center space-x-1 text-gray-700 hover:text-[#1C5B78] transition-colors">
-                <span>Services</span>
+              <button
+                className={`${linkBaseClass} cursor-pointer`}
+                onFocus={() => setServicesDropdownOpen(true)}
+              >
+                <span>{t("nav.services")}</span>
                 <ChevronDown className="w-4 h-4" />
               </button>
               {servicesDropdownOpen && (
-                <div className="absolute top-full left-0 mt-2 w-60 bg-white/95 backdrop-blur-md border border-gray-200 shadow-xl rounded-xl py-2 overflow-hidden">
-                  <div className="px-4 py-2 text-xs text-gray-500 uppercase">Services</div>
-                  <Link to="/services#accessibility-consulting" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                <div className={`${dropdownPanelClass} mt-1 w-72 space-y-1`}>
+                  <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Services
+                  </div>
+                  <Link
+                    to="/services#accessibility-consulting"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <Briefcase className="h-4 w-4 shrink-0" />
                     Accessibility Consulting
                   </Link>
-                  <Link to="/services#assistive-tech-dev" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/services#assistive-tech-dev"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <Cpu className="h-4 w-4 shrink-0" />
                     Assistive Tech Development
                   </Link>
-                  <Link to="/services#inclusive-design" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/services#inclusive-design"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <Palette className="h-4 w-4 shrink-0" />
                     Inclusive Design
                   </Link>
-                  <div className="border-t border-gray-200 my-2"></div>
-                  <div className="px-4 py-2 text-xs text-gray-500 uppercase">Products</div>
-                  <Link to="/services#voice-assistant" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <div className="my-2 border-t border-[#d8e4ec]"></div>
+                  <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
+                    Products
+                  </div>
+                  <Link
+                    to="/services#voice-assistant"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <Mic className="h-4 w-4 shrink-0" />
                     Voice Assistant
                   </Link>
-                  <Link to="/services#screen-reader" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/services#screen-reader"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <AudioLines className="h-4 w-4 shrink-0" />
                     Screen Reader Plus
                   </Link>
-                  <Link to="/services#mobility-app" className="block px-4 py-2 text-gray-700 hover:bg-[#1C5B78] hover:text-white transition-colors">
+                  <Link
+                    to="/services#mobility-app"
+                    className={dropdownItemClass}
+                    onClick={() => setServicesDropdownOpen(false)}
+                  >
+                    <MapPinned className="h-4 w-4 shrink-0" />
                     Mobility Navigator
                   </Link>
                 </div>
               )}
             </div>
 
-            <Link to="/contact" className="text-gray-700 hover:text-[#1C5B78] transition-colors">
-              Contact
+            <Link to="/contact" className={linkBaseClass}>
+              <Contact className="h-4 w-4" />
+              {t("nav.contact")}
             </Link>
+            <LanguageSwitcher compact />
+            <ThemeToggle />
 
-            <Link
-              to="/contact"
-              className="bg-[#1A4F8D] text-white px-6 py-2 rounded-full hover:bg-[#1C5B78] transition-colors"
-            >
-              Support Us
-            </Link>
+            {isAuthenticated ? (
+              <Link
+                to={dashboardPath}
+                className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white transition-colors hover:bg-[#1C5B78]"
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                {t("nav.dashboard")}
+              </Link>
+            ) : (
+              <>
+                <Link to="/login" className={linkBaseClass}>
+                  <LogIn className="h-4 w-4" />
+                  {t("nav.login")}
+                </Link>
+                <Link
+                  to="/signup"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white transition-colors hover:bg-[#1C5B78]"
+                >
+                  <UserPlus className="h-4 w-4" />
+                  {t("nav.signup")}
+                </Link>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -117,44 +233,81 @@ export function Header() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="md:hidden py-4 border-t border-gray-200">
-            <Link to="/" className="block py-2 text-gray-700 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
-              Home
+            <Link
+              to="/"
+              className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-700 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]"
+              onClick={() => setMobileMenuOpen(false)}
+            >
+              <House className="h-4 w-4" />
+              {t("nav.home")}
             </Link>
             <div className="py-2">
-              <div className="text-gray-900">About Us</div>
+              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">About Us</div>
               <div className="pl-4 space-y-2 mt-2">
-                <Link to="/about#mission" className="block text-gray-600 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/about#mission" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                  <Target className="h-4 w-4" />
                   Mission
                 </Link>
-                <Link to="/about#goals" className="block text-gray-600 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/about#goals" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                  <Flag className="h-4 w-4" />
                   Goals
                 </Link>
-                <Link to="/about#vision" className="block text-gray-600 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/about#vision" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                  <Eye className="h-4 w-4" />
                   Vision
                 </Link>
-                <Link to="/about#team" className="block text-gray-600 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/about#team" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                  <Users className="h-4 w-4" />
                   Team
                 </Link>
               </div>
             </div>
             <div className="py-2">
-              <div className="text-gray-900">Services</div>
+              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">Services</div>
               <div className="pl-4 space-y-2 mt-2">
-                <Link to="/services" className="block text-gray-600 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                <Link to="/services" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+                  <Briefcase className="h-4 w-4" />
                   All Services & Products
                 </Link>
               </div>
             </div>
-            <Link to="/contact" className="block py-2 text-gray-700 hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
-              Contact
+            <Link to="/contact" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-700 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
+              <Contact className="h-4 w-4" />
+              {t("nav.contact")}
             </Link>
-            <Link
-              to="/contact"
-              className="inline-block mt-4 bg-[#1A4F8D] text-white px-6 py-2 rounded-full hover:bg-[#1C5B78]"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Support Us
-            </Link>
+            <div className="mt-3 flex flex-wrap gap-3 px-4">
+              <LanguageSwitcher />
+              <ThemeToggle />
+            </div>
+            {isAuthenticated ? (
+              <Link
+                to={dashboardPath}
+                className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white hover:bg-[#1C5B78]"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                <LayoutDashboard className="h-4 w-4" />
+                {t("nav.dashboard")}
+              </Link>
+            ) : (
+              <div className="mt-4 flex flex-wrap gap-3">
+                <Link
+                  to="/login"
+                  className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-6 py-2 text-[#1A4F8D] hover:bg-[#eef5f9]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <LogIn className="h-4 w-4" />
+                  {t("nav.login")}
+                </Link>
+                <Link
+                  to="/signup"
+                  className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white hover:bg-[#1C5B78]"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <UserPlus className="h-4 w-4" />
+                  {t("nav.signup")}
+                </Link>
+              </div>
+            )}
           </div>
         )}
       </nav>

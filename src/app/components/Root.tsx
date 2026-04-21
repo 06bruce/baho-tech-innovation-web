@@ -18,9 +18,15 @@ export function Root() {
     <div
       className="min-h-screen flex flex-col"
       style={{
-        backgroundColor: "#ffffff",
+        backgroundColor: "var(--background)",
       }}
     >
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-[#FEC629] focus:px-5 focus:py-3 focus:font-semibold focus:text-gray-950"
+      >
+        Skip to main content
+      </a>
       {isLoading && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-white/90 backdrop-blur-sm">
           <div className="flex flex-col items-center gap-4">
@@ -42,7 +48,7 @@ export function Root() {
         </div>
       )}
       <Header />
-      <main className="flex-1">
+      <main id="main-content" className="flex-1" tabIndex={-1}>
         <Outlet />
       </main>
       <Footer />
