@@ -22,9 +22,9 @@ export function VoiceCommandPanel() {
       { phrase: "go to dashboard", action: () => navigate(user?.role === "admin" ? "/admin/dashboard" : getDashboardPathForDisability(user?.disabilityCategory)) },
       { phrase: "hey activate", action: () => window.dispatchEvent(new CustomEvent("baho-ai-activate")) },
       {
-        phrase: "hey mio",
+        phrase: "hey talker",
         action: (transcript: string) => {
-          const commandText = transcript.replace(/.*hey mio/i, "").trim();
+          const commandText = transcript.replace(/.*hey talker/i, "").trim();
           stopVoiceCommandsRef.current();
           window.dispatchEvent(new CustomEvent("baho-ai-command", { detail: { commandText } }));
         },
