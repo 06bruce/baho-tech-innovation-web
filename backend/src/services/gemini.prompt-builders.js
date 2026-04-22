@@ -83,6 +83,49 @@ Conversation:
 ${history}`;
 }
 
+export function buildAiCommandPrompt({ command, pageContext, user, language }) {
+  return `${accessibilityInstruction(language)}
+You are Baho Tech's hands-free AI screen-reader operator.
+Understand the user's spoken command and return ONLY valid JSON. Do not wrap it in markdown.
+
+Allowed actions:
+- {"type":"navigate","route":"/dashboard"} for internal routes only
+- {"type":"focus","target":"visible label or placeholder"}
+- {"type":"type","target":"visible label or placeholder","text":"text to enter"}
+- {"type":"search","query":"text to find on the current page"}
+- {"type":"readPage"}
+- {"type":"none"}
+
+Rules:
+- Never invent external URLs.
+- Never use destructive actions.
+- Prefer one or two actions maximum.
+- If the command is unclear, use type "none" and ask one short clarification.
+- Respond in ${languageName(language)}.
+
+Current page context:
+- Route: ${pageContext?.route || "unknown"}
+- Title: ${pageContext?.title || "unknown"}
+- Headings/sections: ${(pageContext?.sections || []).join(", ") || "none"}
+- Buttons/links: ${(pageContext?.buttons || []).join(", ") || "none"}
+- Forms: ${(pageContext?.forms || []).join(", ") || "none"}
+- Inputs: ${(pageContext?.inputs || []).join(", ") || "none"}
+- Searchable text: ${(pageContext?.searchableText || "").slice(0, 1800) || "none"}
+- User role: ${user?.role || "guest"}
+- Disability: ${user?.disabilityCategory || user?.disability_category || "unknown"}
+
+Spoken command:
+${command}
+
+Return this JSON shape:
+{
+  "response": "short spoken response",
+  "actions": [
+    {"type": "navigate|focus|type|search|readPage|none"}
+  ]
+}`;
+}
+
 export function buildVisionPrompt({ task, language }) {
   return `${accessibilityInstruction(language)}
 You are a vision assistant for blind users.

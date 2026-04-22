@@ -2,7 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 
 type Command = {
   phrase: string;
-  action: () => void;
+  action: (transcript: string) => void;
 };
 
 type SpeechRecognitionConstructor = new () => {
@@ -49,7 +49,7 @@ export function useVoiceCommands(commands: Command[], language: string) {
       const text = event.results[event.results.length - 1][0].transcript.toLowerCase().trim();
       setLastCommand(text);
       const match = normalizedCommands.find((command) => text.includes(command.normalized));
-      if (match) match.action();
+      if (match) match.action(text);
     };
     recognition.onerror = (event: any) => {
       setError(event.error ? `Voice command error: ${event.error}` : "Voice command recognition failed.");

@@ -17,6 +17,14 @@ export function collectPageContext(route: string): PageContext {
     forms: Array.from(main.querySelectorAll("form, fieldset"))
       .map((element) => element.getAttribute("aria-label") || element.querySelector("legend")?.textContent || "Form")
       .slice(0, 8),
+    inputs: Array.from(main.querySelectorAll<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>("input, textarea, select"))
+      .map((element) => {
+        const label = element.id ? main.querySelector(`label[for="${CSS.escape(element.id)}"]`)?.textContent : "";
+        return (label || element.getAttribute("aria-label") || element.placeholder || element.name || "").trim();
+      })
+      .filter(Boolean)
+      .slice(0, 12),
+    searchableText: (main.innerText || "").replace(/\s+/g, " ").trim().slice(0, 4000),
   };
 }
 

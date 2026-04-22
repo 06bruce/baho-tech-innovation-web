@@ -15,10 +15,20 @@ export function VoiceCommandPanel() {
   const { user, logout } = useAuth();
   const { setTheme } = useTheme();
   const autoStartedRef = useRef(false);
+  const stopVoiceCommandsRef = useRef<() => void>(() => undefined);
+  const startVoiceCommandsRef = useRef<() => void>(() => undefined);
   const commands = useMemo(
     () => [
       { phrase: "go to dashboard", action: () => navigate(user?.role === "admin" ? "/admin/dashboard" : getDashboardPathForDisability(user?.disabilityCategory)) },
-      { phrase: "baho activate", action: () => window.dispatchEvent(new CustomEvent("baho-ai-activate")) },
+      { phrase: "hey activate", action: () => window.dispatchEvent(new CustomEvent("baho-ai-activate")) },
+      {
+        phrase: "hey mio",
+        action: (transcript: string) => {
+          const commandText = transcript.replace(/.*hey mio/i, "").trim();
+          stopVoiceCommandsRef.current();
+          window.dispatchEvent(new CustomEvent("baho-ai-command", { detail: { commandText } }));
+        },
+      },
       { phrase: "open profile", action: () => navigate(user?.role === "admin" ? "/admin/users" : getDashboardPathForDisability(user?.disabilityCategory)) },
       { phrase: "open blind tools", action: () => navigate("/dashboard/blind") },
       { phrase: "start reading", action: () => document.getElementById("main-content")?.focus() },
@@ -29,6 +39,8 @@ export function VoiceCommandPanel() {
     [logout, navigate, setTheme, user?.disabilityCategory, user?.role]
   );
   const { supported, isListening, lastCommand, error, start, stop } = useVoiceCommands(commands, speechCodeForAppLanguage(i18n.language));
+  stopVoiceCommandsRef.current = stop;
+  startVoiceCommandsRef.current = start;
 
   useEffect(() => {
     if (supported && !isListening && !autoStartedRef.current) {
@@ -36,6 +48,15 @@ export function VoiceCommandPanel() {
       start();
     }
   }, [isListening, start, supported]);
+
+  useEffect(() => {
+    function resumeVoiceCommands() {
+      if (supported) startVoiceCommandsRef.current();
+    }
+
+    window.addEventListener("baho-voice-resume", resumeVoiceCommands);
+    return () => window.removeEventListener("baho-voice-resume", resumeVoiceCommands);
+  }, [supported]);
 
   return (
     <section className="rounded-3xl border border-[#d8e4ec] bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="voice-command-title">
