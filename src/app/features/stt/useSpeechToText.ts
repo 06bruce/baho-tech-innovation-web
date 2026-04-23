@@ -4,28 +4,10 @@ import { fileToBase64 } from "../../utils/pageContext";
 
 const HISTORY_KEY = "baho_stt_history";
 
-type SpeechRecognitionConstructor = new () => {
-  continuous: boolean;
-  interimResults: boolean;
-  lang: string;
-  start: () => void;
-  stop: () => void;
-  abort: () => void;
-  onresult: ((event: any) => void) | null;
-  onerror: ((event: any) => void) | null;
-  onend: (() => void) | null;
-};
-
-function getSpeechRecognition(): SpeechRecognitionConstructor | null {
-  return (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition || null;
-}
-
 export function useSpeechToText() {
-  const recognitionRef = useRef<InstanceType<SpeechRecognitionConstructor> | null>(null);
   const recorderRef = useRef<MediaRecorder | null>(null);
   const chunksRef = useRef<Blob[]>([]);
   const [transcript, setTranscript] = useState("");
-  const [interimTranscript, setInterimTranscript] = useState("");
   const [isListening, setIsListening] = useState(false);
   const [error, setError] = useState("");
   const [history, setHistory] = useState<string[]>(() => {
@@ -35,8 +17,7 @@ export function useSpeechToText() {
       return [];
     }
   });
-  const supported = Boolean(getSpeechRecognition());
-  const fallbackSupported = "MediaRecorder" in window && navigator.mediaDevices?.getUserMedia;
+  const supported = typeof window !== "undefined" && "MediaRecorder" in window && Boolean(navigator.mediaDevices?.getUserMedia);
 
   const saveTranscript = useCallback((text: string) => {
     const value = text.trim();
@@ -48,49 +29,25 @@ export function useSpeechToText() {
     });
   }, []);
 
-  const start = useCallback(
-    (language: string) => {
-      const Recognition = getSpeechRecognition();
-      if (!Recognition) {
-        setError("Speech recognition is not supported in this browser.");
-        return;
-      }
-
-      setError("");
-      const recognition = new Recognition();
-      recognition.continuous = true;
-      recognition.interimResults = true;
-      recognition.lang = language;
-      recognition.onresult = (event: any) => {
-        let finalText = "";
-        let interimText = "";
-        for (let index = event.resultIndex; index < event.results.length; index += 1) {
-          const result = event.results[index];
-          if (result.isFinal) finalText += result[0].transcript;
-          else interimText += result[0].transcript;
-        }
-        if (finalText) setTranscript((current) => `${current} ${finalText}`.trim());
-        setInterimTranscript(interimText);
-      };
-      recognition.onerror = (event: any) => {
-        setError(event.error ? `Microphone error: ${event.error}` : "Speech recognition failed.");
-        setIsListening(false);
-      };
-      recognition.onend = () => setIsListening(false);
-      recognitionRef.current = recognition;
-      recognition.start();
-      setIsListening(true);
-    },
-    []
-  );
-
-  const startFallbackRecording = useCallback(async () => {
-    if (!fallbackSupported) {
-      setError("This browser does not support speech recognition or audio recording fallback.");
+  const start = useCallback(async () => {
+    if (!supported) {
+      setError("This browser does not support microphone audio recording.");
       return;
     }
 
-    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch (captureError) {
+      const name = captureError instanceof DOMException ? captureError.name : "";
+      setIsListening(false);
+      setError(
+        name === "NotAllowedError"
+          ? "Microphone permission was blocked. Please allow microphone access and try again."
+          : "Could not start microphone recording. Please try again."
+      );
+      return;
+    }
     const preferredType = MediaRecorder.isTypeSupported("audio/ogg;codecs=opus")
       ? "audio/ogg;codecs=opus"
       : MediaRecorder.isTypeSupported("audio/ogg")
@@ -108,9 +65,9 @@ export function useSpeechToText() {
     recorder.start();
     setError("");
     setIsListening(true);
-  }, [fallbackSupported]);
+  }, [supported]);
 
-  const stopFallbackRecording = useCallback(
+  const stop = useCallback(
     async ({ token, language }: { token: string; language: string }) => {
       const recorder = recorderRef.current;
       if (!recorder) return;
@@ -120,53 +77,47 @@ export function useSpeechToText() {
           recorder.stream.getTracks().forEach((track) => track.stop());
           resolve();
         };
-        recorder.stop();
+        if (recorder.state === "inactive") resolve();
+        else recorder.stop();
       });
 
       setIsListening(false);
       const blob = new Blob(chunksRef.current, { type: recorder.mimeType || "audio/ogg" });
-      const audioBase64 = await fileToBase64(blob);
-      const response = await speechService.transcribe(token, {
-        audioBase64,
-        mimeType: blob.type || "audio/ogg",
-        language,
-      });
-      setTranscript((current) => {
-        const next = `${current} ${response.transcript}`.trim();
-        saveTranscript(next);
-        return next;
-      });
+      recorderRef.current = null;
+
+      try {
+        const audioBase64 = await fileToBase64(blob);
+        const response = await speechService.transcribe(token, {
+          audioBase64,
+          mimeType: blob.type || "audio/ogg",
+          language,
+        });
+        setTranscript((current) => {
+          const next = `${current} ${response.transcript}`.trim();
+          saveTranscript(next);
+          return next;
+        });
+        setError("");
+      } catch (transcriptionError) {
+        const message = transcriptionError instanceof Error ? transcriptionError.message : "Audio transcription failed.";
+        setError(message);
+      }
     },
     [saveTranscript]
   );
 
-  const stop = useCallback(() => {
-    recognitionRef.current?.stop();
-    setIsListening(false);
-    setInterimTranscript("");
-    setTranscript((current) => {
-      saveTranscript(current);
-      return current;
-    });
-  }, [saveTranscript]);
-
   const clear = useCallback(() => {
     setTranscript("");
-    setInterimTranscript("");
   }, []);
 
   return {
     supported,
-    fallbackSupported,
     transcript,
-    interimTranscript,
     isListening,
     error,
     history,
     start,
     stop,
-    startFallbackRecording,
-    stopFallbackRecording,
     clear,
   };
 }

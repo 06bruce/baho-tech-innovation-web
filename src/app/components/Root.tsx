@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { VoiceCommandIndicator } from "./VoiceCommandIndicator";
 import { useEffect, useState } from "react";
 import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
 
@@ -51,6 +52,7 @@ export function Root() {
       <main id="main-content" className="flex-1" tabIndex={-1}>
         <Outlet />
       </main>
+      <VoiceCommandIndicator />
       <Footer />
     </div>
   );

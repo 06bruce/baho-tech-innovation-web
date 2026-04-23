@@ -5,10 +5,11 @@ import footerBackgroundSrc from "../../../images/footer.png";
 
 export function Footer() {
   return (
-    <footer className="relative overflow-hidden bg-gray-900 text-white">
-      <div
-        className="absolute inset-0 bg-contain bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${footerBackgroundSrc})` }}
+    <footer className="relative min-h-[460px] overflow-hidden bg-gray-900 text-white">
+      <img
+        src={footerBackgroundSrc}
+        alt=""
+        className="absolute inset-0 h-full w-full object-cover object-center"
         aria-hidden="true"
       />
       <div

@@ -6,5 +6,6 @@ export const speechLanguages = [
 ] as const;
 
 export function speechCodeForAppLanguage(language?: string) {
-  return speechLanguages.find((item) => item.appLanguage === language)?.code || "en-US";
+  const appLanguage = language?.split("-")[0];
+  return speechLanguages.find((item) => item.appLanguage === appLanguage)?.code || "en-US";
 }

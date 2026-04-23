@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { TranslatedText } from "./TranslatedText";
 
 interface ServiceCardProps {
   id: string;
@@ -7,9 +8,10 @@ interface ServiceCardProps {
   title: string;
   description: string;
   details: string;
+  status?: string;
 }
 
-export function ServiceCard({ icon, title, description, details }: ServiceCardProps) {
+export function ServiceCard({ icon, title, description, details, status }: ServiceCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -44,7 +46,14 @@ export function ServiceCard({ icon, title, description, details }: ServiceCardPr
               <h3 className="text-xl text-gray-900 mb-3 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
                 {title}
               </h3>
-              <p className="text-gray-600 mb-6 flex-1">{description}</p>
+              {status && (
+                <TranslatedText
+                  text={status}
+                  as="span"
+                  className="mb-4 inline-flex w-fit rounded-full bg-[#FEC629]/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]"
+                />
+              )}
+              <TranslatedText text={description} as="p" className="text-gray-600 mb-6 flex-1" />
               <button
                 onClick={() => setIsExpanded(true)}
                 className={`self-start px-6 py-2 rounded-full transition-all duration-300 ${
@@ -53,7 +62,7 @@ export function ServiceCard({ icon, title, description, details }: ServiceCardPr
                     : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                 }`}
               >
-                Read More
+                <TranslatedText text="Read More" />
               </button>
             </motion.div>
           ) : (
@@ -67,12 +76,19 @@ export function ServiceCard({ icon, title, description, details }: ServiceCardPr
               <h3 className="text-xl text-gray-900 mb-3 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
                 {title}
               </h3>
-              <p className="text-gray-700 mb-6 flex-1 leading-relaxed">{details}</p>
+              {status && (
+                <TranslatedText
+                  text={status}
+                  as="span"
+                  className="mb-4 inline-flex w-fit rounded-full bg-[#FEC629]/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]"
+                />
+              )}
+              <TranslatedText text={details} as="p" className="text-gray-700 mb-6 flex-1 leading-relaxed" />
               <button
                 onClick={() => setIsExpanded(false)}
                 className="self-start px-6 py-2 bg-[#1A4F8D] text-white rounded-full hover:bg-[#1C5B78] transition-colors"
               >
-                Show Less
+                <TranslatedText text="Show Less" />
               </button>
             </motion.div>
           )}

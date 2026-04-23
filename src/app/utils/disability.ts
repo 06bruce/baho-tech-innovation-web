@@ -13,7 +13,7 @@ export const disabilityDescriptions: Record<DisabilityCategory, string> = {
   blind: "Screen reader support and Smart Blind Stick services.",
   deaf: "Real-time voice-to-text service.",
   mute: "Text-to-speech communication service.",
-  mobility: "Mobility support modules are coming soon.",
+  mobility: "Mobility support is marked as a future plan.",
 };
 
 export const disabilityDashboardPaths: Record<DisabilityCategory, string> = {

@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { NewsCarousel } from "./NewsCarousel";
+import { TranslatedText } from "./TranslatedText";
 import {
   SlidersHorizontal,
   MessageCircle,
@@ -96,23 +97,23 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-30">
           <div className="text-center max-w-3xl mx-auto bg-[#1A4F8D]/70 rounded-3xl px-6 py-8 backdrop-blur-sm">
             <h1 className="text-4xl md:text-6xl mb-6 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#FEC629] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              Empowering Lives Through Technology
+              <TranslatedText text="Empowering Lives Through Technology" />
             </h1>
             <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
-              Baho Tech creates innovative solutions that break down barriers and make technology accessible to everyone.
+              <TranslatedText text="Baho Tech creates innovative solutions that break down barriers and make technology accessible to everyone." />
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Link
                 to="/services"
                 className="bg-white text-[#1A4F8D] px-8 py-4 rounded-full hover:bg-gray-100 transition-colors text-lg"
               >
-                Explore Our Solutions
+                <TranslatedText text="Explore Our Solutions" />
               </Link>
               <Link
                 to="/contact"
                 className="bg-transparent border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white/10 transition-colors text-lg"
               >
-                Support Us
+                <TranslatedText text="Support Us" />
               </Link>
             </div>
           </div>
@@ -159,7 +160,7 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="mb-14">
             <h2 className="text-3xl md:text-4xl text-gray-900 mb-4 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              What We Do & What We Offer
+              <TranslatedText text="What We Do & What We Offer" />
             </h2>
           </div>
 
@@ -170,9 +171,9 @@ export function Home() {
               <div className="absolute h-[360px] w-[360px] rounded-full border border-white/10"></div>
               <div className="relative h-[250px] w-[250px] rounded-full bg-[#0D1B2A] text-white shadow-[0_20px_50px_rgba(13,27,42,0.35)] flex items-center justify-center text-center px-6">
                 <div>
-                  <div className="text-2xl font-bold tracking-wide">OUR SERVICES</div>
+                  <TranslatedText text="OUR SERVICES" as="div" className="text-2xl font-bold tracking-wide" />
                   <div className="mx-auto my-3 h-[2px] w-20 bg-[#FF8C42]"></div>
-                  <div className="text-sm tracking-[0.35em] text-white/80">WHAT WE DO</div>
+                  <TranslatedText text="WHAT WE DO" as="div" className="text-sm tracking-[0.35em] text-white/80" />
                 </div>
               </div>
             </div>
@@ -204,8 +205,8 @@ export function Home() {
                   ></div>
 
                   <div className="relative flex-1 bg-white rounded-2xl px-6 py-5 shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                    <div className="text-base font-semibold text-gray-900 mb-2">{node.title}</div>
-                    <div className="text-sm text-gray-500 leading-relaxed">{node.body}</div>
+                    <TranslatedText text={node.title} as="div" className="text-base font-semibold text-gray-900 mb-2" />
+                    <TranslatedText text={node.body} as="div" className="text-sm text-gray-500 leading-relaxed" />
                     <div
                       className="absolute right-0 top-0 h-full w-8 rounded-l-full translate-x-1/2"
                       style={{ background: node.color }}
@@ -243,14 +244,14 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl text-gray-900 mb-4 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              Latest News & Projects
+              <TranslatedText text="Latest News & Projects" />
             </h2>
             <div className="flex justify-center mb-3">
               <span className="px-3 py-1 rounded-full bg-green-200/40 text-green-900 text-xs uppercase tracking-wide">
-                Upcoming Projects & Updates
+                <TranslatedText text="Upcoming Projects & Updates" />
               </span>
             </div>
-            <p className="text-xl text-gray-600">Stay updated with our recent developments and initiatives</p>
+            <TranslatedText text="Stay updated with our recent developments and initiatives" as="p" className="text-xl text-gray-600" />
           </div>
 
           <NewsCarousel />
@@ -282,17 +283,16 @@ export function Home() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             <div className="w-full lg:w-5/12">
               <h2 className="text-3xl md:text-4xl text-gray-900 mb-5 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-                Our Impact
+                <TranslatedText text="Our Impact" />
               </h2>
               <p className="text-lg text-gray-600 leading-relaxed">
-                We measure success by the real-world outcomes we help create. From community training to enterprise
-                accessibility programs, our work is designed to scale and leave a lasting, positive footprint.
+                <TranslatedText text="We measure success by the real-world outcomes we help create. From community training to enterprise accessibility programs, our work is designed to scale and leave a lasting, positive footprint." />
               </p>
               <div className="mt-8 grid grid-cols-2 gap-4">
                 {impactStats.map((stat) => (
                   <div key={stat.label} className="rounded-2xl border border-[#1A4F8D]/15 bg-white px-4 py-3 shadow-sm">
                     <div className="text-2xl font-semibold text-[#1A4F8D]">{stat.value}</div>
-                    <div className="text-sm text-gray-600">{stat.label}</div>
+                    <TranslatedText text={stat.label} as="div" className="text-sm text-gray-600" />
                   </div>
                 ))}
               </div>
@@ -325,7 +325,7 @@ export function Home() {
                           </div>
                           <div>
                             <div className="text-2xl font-semibold text-gray-900">{stat.value}</div>
-                            <div className="text-sm text-gray-600">{stat.label}</div>
+                            <TranslatedText text={stat.label} as="div" className="text-sm text-gray-600" />
                           </div>
                         </div>
                       </div>
@@ -335,8 +335,8 @@ export function Home() {
 
                 <div className="pointer-events-none absolute inset-0 hidden lg:flex items-center justify-center">
                   <div className="h-32 w-32 rounded-full bg-[#1A4F8D] text-white flex flex-col items-center justify-center shadow-lg">
-                    <div className="text-sm uppercase tracking-[0.3em] text-white/70">Impact</div>
-                    <div className="text-2xl font-semibold">Core</div>
+                    <TranslatedText text="Impact" as="div" className="text-sm uppercase tracking-[0.3em] text-white/70" />
+                    <TranslatedText text="Core" as="div" className="text-2xl font-semibold" />
                   </div>
                   <div className="absolute h-40 w-40 rounded-full border border-[#1A4F8D]/30"></div>
                   <div className="absolute h-52 w-52 rounded-full border border-[#1A4F8D]/20"></div>

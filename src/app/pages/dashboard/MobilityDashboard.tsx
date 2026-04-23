@@ -12,8 +12,8 @@ export function MobilityDashboard() {
     >
       <div className="grid gap-5 md:grid-cols-3">
         {[
-          { icon: MapPinned, title: "Route assistance", body: "Future accessible navigation and route planning support." },
-          { icon: Settings, title: "Device setup", body: "Prepared space for mobility device configuration." },
+          { icon: MapPinned, title: "Future route assistance", body: "Future plan for accessible navigation and route planning support." },
+          { icon: Settings, title: "Future device setup", body: "Planned space for mobility device configuration in a later release." },
           { icon: Clock, title: "Coming soon", body: "Backend modules can be connected here as they are released." },
         ].map((item) => (
           <article key={item.title} className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm">

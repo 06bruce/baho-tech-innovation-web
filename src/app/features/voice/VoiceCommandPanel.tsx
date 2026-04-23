@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef } from "react";
 import { useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Mic, Square } from "lucide-react";
@@ -7,24 +7,51 @@ import { useAuth } from "../../hooks/useAuth";
 import { useTheme } from "../../hooks/useTheme";
 import { getDashboardPathForDisability } from "../../utils/disability";
 import { speechCodeForAppLanguage } from "../speech/languages";
+import { executeSystemVoiceAction } from "./systemVoiceActions";
 import { useVoiceCommands } from "./useVoiceCommands";
 
 export function VoiceCommandPanel() {
   const { t, i18n } = useTranslation();
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { user, token, logout } = useAuth();
   const { setTheme } = useTheme();
   const autoStartedRef = useRef(false);
   const stopVoiceCommandsRef = useRef<() => void>(() => undefined);
   const startVoiceCommandsRef = useRef<() => void>(() => undefined);
+  const changeLanguage = useCallback(
+    async (language: string) => {
+      window.localStorage.setItem("baho_language", language);
+      await i18n.changeLanguage(language);
+    },
+    [i18n]
+  );
+  const handleLogout = useCallback(async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  }, [logout, navigate]);
+  const handleUnhandledCommand = useCallback(
+    async (transcript: string) => {
+      const handled = await executeSystemVoiceAction(transcript, {
+        navigate,
+        logout: handleLogout,
+        setTheme,
+        changeLanguage,
+        user,
+      });
+      if (!handled) {
+        window.dispatchEvent(new CustomEvent("baho-ai-command", { detail: { commandText: transcript } }));
+      }
+    },
+    [changeLanguage, handleLogout, navigate, setTheme, user]
+  );
   const commands = useMemo(
     () => [
       { phrase: "go to dashboard", action: () => navigate(user?.role === "admin" ? "/admin/dashboard" : getDashboardPathForDisability(user?.disabilityCategory)) },
       { phrase: "hey activate", action: () => window.dispatchEvent(new CustomEvent("baho-ai-activate")) },
       {
-        phrase: "hey talker",
+        phrase: "let's go",
         action: (transcript: string) => {
-          const commandText = transcript.replace(/.*hey talker/i, "").trim();
+          const commandText = transcript.replace(/.*let'?s go/i, "").trim();
           stopVoiceCommandsRef.current();
           window.dispatchEvent(new CustomEvent("baho-ai-command", { detail: { commandText } }));
         },
@@ -34,11 +61,16 @@ export function VoiceCommandPanel() {
       { phrase: "start reading", action: () => document.getElementById("main-content")?.focus() },
       { phrase: "switch to dark mode", action: () => setTheme("dark") },
       { phrase: "switch to light mode", action: () => setTheme("light") },
-      { phrase: "logout", action: () => void logout().then(() => navigate("/login", { replace: true })) },
+      { phrase: "logout", action: () => void handleLogout() },
     ],
-    [logout, navigate, setTheme, user?.disabilityCategory, user?.role]
+    [handleLogout, navigate, setTheme, user?.disabilityCategory, user?.role]
   );
-  const { supported, isListening, lastCommand, error, start, stop } = useVoiceCommands(commands, speechCodeForAppLanguage(i18n.language));
+  const { supported, isListening, lastCommand, error, start, stop } = useVoiceCommands(
+    commands,
+    speechCodeForAppLanguage(i18n.language),
+    token,
+    handleUnhandledCommand
+  );
   stopVoiceCommandsRef.current = stop;
   startVoiceCommandsRef.current = start;
 

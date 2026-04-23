@@ -8,9 +8,17 @@ export function languageOptions(_req, res) {
 
 export async function translateDynamicContent(req, res, next) {
   try {
+    const text = String(req.body?.text || "").trim();
+    if (!text) {
+      return res.status(400).json({ ok: false, error: "text is required." });
+    }
+    if (text.length > 1200) {
+      return res.status(400).json({ ok: false, error: "Text is too long to translate in one request." });
+    }
+
     const result = await generateGeminiContent({
       prompt: buildTranslationPrompt({
-        text: req.body?.text || "",
+        text,
         targetLanguage: req.body?.targetLanguage || req.user?.preferred_language || "en",
       }),
     });

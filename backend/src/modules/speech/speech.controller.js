@@ -4,16 +4,16 @@ import { generateGeminiContent } from "../../services/gemini.service.js";
 export function capabilities(_req, res) {
   res.json({
     ok: true,
-    provider: "browser-web-speech-api",
+    provider: "baho-gemini-audio-transcription",
     textToSpeech: {
       mode: "client",
       languages: ["en", "rw", "fr", "sw"],
       notes: "Uses SpeechSynthesis in supported browsers. Voice availability depends on the user's device.",
     },
     speechToText: {
-      mode: "client",
+      mode: "server",
       languages: ["en", "rw", "fr", "sw"],
-      notes: "Uses SpeechRecognition/webkitSpeechRecognition in supported browsers. Kinyarwanda recognition depends on browser support.",
+      notes: "Records microphone audio in the app and transcribes it through the Baho Tech backend.",
     },
   });
 }

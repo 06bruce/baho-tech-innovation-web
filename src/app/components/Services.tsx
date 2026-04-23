@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import { ServiceCard } from "./ServiceCard";
+import { TranslatedText } from "./TranslatedText";
 import {
   Accessibility,
   Smartphone,
@@ -77,25 +78,28 @@ export function Services() {
 
   const products = [
     {
-      id: "Echo",
+      id: "sense-ai",
       icon: <Mic className="w-12 h-12" />,
-      title:"Baho tech voice to text",
-      description: "AI-powered voice assistant designed for accessibility.",
-      details: "Our flagship voice assistant uses advanced AI to provide hands-free control of devices, read content aloud, and assist with daily tasks. Specifically designed for users with visual or motor impairments, it features natural language processing, context awareness, and seamless integration with popular apps and services."
+      title: "Sense AI",
+      status: "Coming soon",
+      description: "An AI accessibility companion for voice, vision, translation, and hands-free assistance.",
+      details: "Sense AI is planned as Baho Tech's intelligent accessibility layer. It will combine voice control, scene understanding, translation, and page guidance so users can move through digital systems with less friction."
     },
     {
-      id: "Talka",
+      id: "sbs",
+      icon: <Navigation className="w-12 h-12" />,
+      title: "SBS",
+      status: "MVP",
+      description: "Smart Blind Stick support for safer navigation and obstacle awareness.",
+      details: "SBS is the MVP Smart Blind Stick product. It focuses on practical navigation support, obstacle awareness, and service workflows for blind users while the hardware and software experience continue to mature."
+    },
+    {
+      id: "talka",
       icon: <Eye className="w-12 h-12" />,
       title: "Talka",
-      description: "Next-generation screen reader with enhanced features.",
-      details: "Screen Reader Plus goes beyond traditional screen readers with AI-powered image description, intelligent content summarization, and customizable reading preferences. It supports multiple languages, works across web and desktop applications, and includes advanced navigation shortcuts for power users."
-    },
-    {
-      id: "SBS",
-      icon: <Navigation className="w-12 h-12" />,
-      title: "Smart blind stick",
-      description: "Accessible navigation app for people with mobility challenges.",
-      details: "Mobility Navigator provides wheelchair-accessible route planning, real-time accessibility information about buildings and public spaces, and community-contributed accessibility reviews. Features include step-free routing, automatic ramp detection, and integration with public transit accessibility data."
+      status: "In development",
+      description: "A communication and reading assistant built for accessible daily interactions.",
+      details: "Talka is in development as a practical assistant for communication, reading support, and multilingual accessibility workflows. It is being shaped around real user needs before a full release."
     }
   ];
 
@@ -104,31 +108,31 @@ export function Services() {
       color: "#2EC4B6",
       icon: SlidersHorizontal,
       title: "System Configuration",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae metus non."
+      body: "We configure assistive workflows, dashboards, and accessibility settings around each user profile."
     },
     {
       color: "#FF8C42",
       icon: MessageCircle,
       title: "Support & Communication",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae metus non."
+      body: "We help teams and users communicate clearly through training, support, and inclusive service design."
     },
     {
       color: "#F72585",
       icon: Star,
       title: "Quality & Excellence",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae metus non."
+      body: "We test usability, accessibility, and service quality before products reach the people who need them."
     },
     {
       color: "#3A86FF",
       icon: LineChart,
       title: "Data & Growth",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae metus non."
+      body: "We use product feedback and accessibility insights to improve impact over time."
     },
     {
       color: "#FFBE0B",
       icon: UsersRound,
       title: "Team & Community",
-      body: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vitae metus non."
+      body: "We build with users, caregivers, schools, and partners so assistive technology fits real life."
     }
   ];
 
@@ -139,10 +143,10 @@ export function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl md:text-5xl mb-4 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#FEC629] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              Our Services & Products
+              <TranslatedText text="Our Services & Products" />
             </h1>
             <p className="text-xl text-white/90 max-w-3xl mx-auto">
-              Comprehensive solutions designed to create an inclusive digital world
+              <TranslatedText text="Comprehensive solutions designed to create an inclusive digital world" />
             </p>
           </div>
         </div>
@@ -193,9 +197,9 @@ export function Services() {
               <div className="absolute h-[360px] w-[360px] rounded-full border border-white/10"></div>
               <div className="relative h-[250px] w-[250px] rounded-full bg-[#0D1B2A] text-white shadow-[0_20px_50px_rgba(13,27,42,0.35)] flex items-center justify-center text-center px-6">
                 <div>
-                  <div className="text-2xl font-bold tracking-wide">OUR SERVICES</div>
+                  <TranslatedText text="OUR SERVICES" as="div" className="text-2xl font-bold tracking-wide" />
                   <div className="mx-auto my-3 h-[2px] w-20 bg-[#FF8C42]"></div>
-                  <div className="text-sm tracking-[0.35em] text-white/80">WHAT WE DO</div>
+                  <TranslatedText text="WHAT WE DO" as="div" className="text-sm tracking-[0.35em] text-white/80" />
                 </div>
               </div>
             </div>
@@ -224,8 +228,8 @@ export function Services() {
                   ></div>
 
                   <div className="relative flex-1 bg-white rounded-2xl px-6 py-5 shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                    <div className="text-base font-semibold text-gray-900 mb-2">{node.title}</div>
-                    <div className="text-sm text-gray-500 leading-relaxed">{node.body}</div>
+                    <TranslatedText text={node.title} as="div" className="text-base font-semibold text-gray-900 mb-2" />
+                    <TranslatedText text={node.body} as="div" className="text-sm text-gray-500 leading-relaxed" />
                     <div
                       className="absolute right-0 top-0 h-full w-8 rounded-l-full translate-x-1/2"
                       style={{ background: node.color }}
@@ -258,10 +262,10 @@ export function Services() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl text-gray-900 mb-4 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              Our Products
+              <TranslatedText text="Our Products" />
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Innovative assistive technologies powered by Baho Tech
+              <TranslatedText text="Innovative assistive technologies powered by Baho Tech" />
             </p>
           </div>
 
@@ -279,16 +283,16 @@ export function Services() {
       <section className="py-20 bg-[#1A4F8D] text-white relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl md:text-4xl mb-6 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#FEC629] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-            Ready to Get Started?
+            <TranslatedText text="Ready to Get Started?" />
           </h2>
           <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Let's work together to make your digital products accessible to everyone
+            <TranslatedText text="Let's work together to make your digital products accessible to everyone" />
           </p>
           <a
             href="/contact"
             className="inline-block bg-white text-[#1A4F8D] px-8 py-4 rounded-full hover:bg-gray-100 transition-colors text-lg"
           >
-            Contact Us Today
+            <TranslatedText text="Contact Us Today" />
           </a>
         </div>
       </section>

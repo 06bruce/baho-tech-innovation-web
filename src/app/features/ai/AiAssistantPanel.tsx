@@ -4,28 +4,29 @@ import { Bot, Mic, Send, Volume2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { FormAlert } from "../../components/auth/FormAlert";
 import { useAuth } from "../../hooks/useAuth";
+import { useTheme } from "../../hooks/useTheme";
 import { aiService, type AiCommandAction, type ChatMessage } from "../../services/aiService";
-import { collectPageContext } from "../../utils/pageContext";
+import { speechService } from "../../services/speechService";
+import { collectPageContext, fileToBase64 } from "../../utils/pageContext";
 import { useTextToSpeech } from "../tts/useTextToSpeech";
 import { speechCodeForAppLanguage } from "../speech/languages";
-
-type SpeechRecognitionConstructor = new () => {
-  continuous: boolean;
-  interimResults: boolean;
-  lang: string;
-  start: () => void;
-  stop: () => void;
-  onresult: ((event: any) => void) | null;
-  onerror: ((event: any) => void) | null;
-  onend: (() => void) | null;
-};
-
-function getSpeechRecognition(): SpeechRecognitionConstructor | null {
-  return (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition || null;
-}
+import { executeSystemVoiceAction } from "../voice/systemVoiceActions";
 
 function normalizeText(text: string) {
   return text.toLowerCase().replace(/\s+/g, " ").trim();
+}
+
+function cleanAssistantText(text: string) {
+  return text
+    .replace(/\*\*/g, "")
+    .replace(/^\s*[-*]\s+/gm, "")
+    .replace(/\*/g, "")
+    .replace(/\s+\n/g, "\n")
+    .trim();
+}
+
+function publishVoiceStatus(state: "idle" | "listening" | "processing", message?: string) {
+  window.dispatchEvent(new CustomEvent("baho-voice-status", { detail: { state, message } }));
 }
 
 function setNativeValue(element: HTMLInputElement | HTMLTextAreaElement, value: string) {
@@ -87,11 +88,12 @@ function searchCurrentPage(query: string) {
 }
 
 export function AiAssistantPanel() {
-  const { token } = useAuth();
+  const { token, user, logout } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const { i18n, t } = useTranslation();
   const { speak, stop } = useTextToSpeech();
+  const { setTheme } = useTheme();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
@@ -100,9 +102,20 @@ export function AiAssistantPanel() {
   const latestAssistant = [...messages].reverse().find((message) => message.role === "assistant")?.content;
 
   const speakResponse = useCallback(
-    (text: string) => speak({ text, language: speechCodeForAppLanguage(i18n.language) }),
-    [i18n.language, speak]
+    (text: string) => speak({ text: cleanAssistantText(text), language: speechCodeForAppLanguage(i18n.resolvedLanguage || i18n.language) }),
+    [i18n.language, i18n.resolvedLanguage, speak]
   );
+  const changeLanguage = useCallback(
+    async (language: string) => {
+      window.localStorage.setItem("baho_language", language);
+      await i18n.changeLanguage(language);
+    },
+    [i18n]
+  );
+  const handleLogout = useCallback(async () => {
+    await logout();
+    navigate("/login", { replace: true });
+  }, [logout, navigate]);
 
   const executeAction = useCallback(
     async (action: AiCommandAction) => {
@@ -118,11 +131,38 @@ export function AiAssistantPanel() {
         return true;
       }
 
+      if (action.type === "click") {
+        return executeSystemVoiceAction(`click ${action.target}`);
+      }
+
       if (action.type === "type") {
         const element = findInteractiveElement(action.target);
         if (!(element instanceof HTMLInputElement || element instanceof HTMLTextAreaElement)) return false;
         highlightElement(element);
         setNativeValue(element, action.text || "");
+        return true;
+      }
+
+      if (action.type === "key") {
+        return executeSystemVoiceAction(`press ${action.key}`);
+      }
+
+      if (action.type === "scroll") {
+        return executeSystemVoiceAction(`scroll ${action.direction}`);
+      }
+
+      if (action.type === "logout") {
+        await handleLogout();
+        return true;
+      }
+
+      if (action.type === "theme") {
+        setTheme(action.theme);
+        return true;
+      }
+
+      if (action.type === "language") {
+        await changeLanguage(action.language);
         return true;
       }
 
@@ -137,44 +177,61 @@ export function AiAssistantPanel() {
 
       return false;
     },
-    [navigate]
+    [changeLanguage, handleLogout, navigate, setTheme]
   );
 
   const runAiCommand = useCallback(
     async (command: string) => {
-      if (!token || !command.trim()) return;
+      const trimmedCommand = command.trim();
+      if (!trimmedCommand) return;
+
+      const handledLocally = await executeSystemVoiceAction(trimmedCommand, {
+        navigate,
+        logout: handleLogout,
+        setTheme,
+        changeLanguage,
+        user,
+      });
+      if (handledLocally) {
+        window.dispatchEvent(new CustomEvent("baho-voice-resume"));
+        return;
+      }
+
+      if (!token) return;
       setError("");
       setIsLoading(true);
-      setMessages((current) => [...current, { role: "user", content: command.trim() }]);
+      publishVoiceStatus("processing", "Running voice command");
+      setMessages((current) => [...current, { role: "user", content: trimmedCommand }]);
 
       try {
         const response = await aiService.command(token, {
-          command,
-          language: i18n.language,
+          command: trimmedCommand,
+          language: i18n.resolvedLanguage || i18n.language,
           pageContext: collectPageContext(location.pathname),
         });
         for (const action of response.actions || []) {
           await executeAction(action);
         }
-        setMessages((current) => [...current, { role: "assistant", content: response.response }]);
-        speakResponse(response.response);
+        const responseText = cleanAssistantText(response.response);
+        setMessages((current) => [...current, { role: "assistant", content: responseText }]);
+        speakResponse(responseText);
       } catch (apiError) {
         const message = apiError instanceof Error ? apiError.message : t("ai.failed");
         setError(message);
         speakResponse(message);
       } finally {
         setIsLoading(false);
+        publishVoiceStatus("idle");
         window.dispatchEvent(new CustomEvent("baho-voice-resume"));
       }
     },
-    [executeAction, i18n.language, location.pathname, speakResponse, t, token]
+    [changeLanguage, executeAction, handleLogout, i18n.language, i18n.resolvedLanguage, location.pathname, navigate, setTheme, speakResponse, t, token, user]
   );
 
   const listenForCommand = useCallback(() => {
-    const Recognition = getSpeechRecognition();
     stop();
 
-    if (!Recognition) {
+    if (!token || !("MediaRecorder" in window) || !navigator.mediaDevices?.getUserMedia) {
       const message = t("voice.unsupported");
       setError(message);
       speakResponse(message);
@@ -182,35 +239,65 @@ export function AiAssistantPanel() {
       return;
     }
 
-    const recognition = new Recognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = speechCodeForAppLanguage(i18n.language);
     setIsCommandListening(true);
+    publishVoiceStatus("listening", "Listening for your command");
     speakResponse(t("ai.listeningForCommand"));
 
-    recognition.onresult = (event: any) => {
-      const command = String(event.results[event.results.length - 1][0].transcript || "").trim();
-      setIsCommandListening(false);
-      void runAiCommand(command);
-    };
-    recognition.onerror = (event: any) => {
-      const message = event.error ? `Voice command error: ${event.error}` : t("ai.commandFailed");
-      setIsCommandListening(false);
-      setError(message);
-      speakResponse(message);
-      window.dispatchEvent(new CustomEvent("baho-voice-resume"));
-    };
-    recognition.onend = () => setIsCommandListening(false);
     window.setTimeout(() => {
-      try {
-        recognition.start();
-      } catch (_error) {
-        setIsCommandListening(false);
-        window.dispatchEvent(new CustomEvent("baho-voice-resume"));
-      }
+      void (async () => {
+        let stream: MediaStream;
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        } catch (_error) {
+          setIsCommandListening(false);
+          publishVoiceStatus("idle");
+          window.dispatchEvent(new CustomEvent("baho-voice-resume"));
+          return;
+        }
+
+        const preferredType = MediaRecorder.isTypeSupported("audio/ogg;codecs=opus")
+          ? "audio/ogg;codecs=opus"
+          : MediaRecorder.isTypeSupported("audio/ogg")
+            ? "audio/ogg"
+            : "audio/webm";
+        const recorder = new MediaRecorder(stream, { mimeType: preferredType });
+        const chunks: Blob[] = [];
+        recorder.ondataavailable = (event) => {
+          if (event.data.size > 0) chunks.push(event.data);
+        };
+
+        await new Promise<void>((resolve) => {
+          recorder.onstop = () => {
+            stream.getTracks().forEach((track) => track.stop());
+            resolve();
+          };
+          recorder.start();
+          window.setTimeout(() => recorder.state !== "inactive" && recorder.stop(), 4500);
+        });
+
+        const blob = new Blob(chunks, { type: recorder.mimeType || "audio/ogg" });
+        try {
+          publishVoiceStatus("processing", "Understanding voice command");
+          const audioBase64 = await fileToBase64(blob);
+          const response = await speechService.transcribe(token, {
+            audioBase64,
+            mimeType: blob.type || "audio/ogg",
+            language: speechCodeForAppLanguage(i18n.language),
+          });
+          const command = response.transcript.trim();
+          if (command) void runAiCommand(command);
+        } catch (transcriptionError) {
+          const message = transcriptionError instanceof Error ? transcriptionError.message : t("ai.commandFailed");
+          setError(message);
+          speakResponse(message);
+          window.dispatchEvent(new CustomEvent("baho-voice-resume"));
+        } finally {
+          setIsCommandListening(false);
+          publishVoiceStatus("idle");
+        }
+      })();
     }, 900);
-  }, [i18n.language, runAiCommand, speakResponse, stop, t]);
+  }, [i18n.language, runAiCommand, speakResponse, stop, t, token]);
 
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -225,10 +312,10 @@ export function AiAssistantPanel() {
     try {
       const response = await aiService.conversation(token, {
         messages: nextMessages,
-        language: i18n.language,
+        language: i18n.resolvedLanguage || i18n.language,
         pageContext: collectPageContext(location.pathname),
       });
-      setMessages([...nextMessages, { role: "assistant", content: response.response }]);
+      setMessages([...nextMessages, { role: "assistant", content: cleanAssistantText(response.response) }]);
     } catch (apiError) {
       setError(apiError instanceof Error ? apiError.message : t("ai.failed"));
     } finally {
@@ -242,11 +329,12 @@ export function AiAssistantPanel() {
     setError("");
     try {
       const response = await aiService.screenReader(token, {
-        language: i18n.language,
+        language: i18n.resolvedLanguage || i18n.language,
         pageContext: collectPageContext(location.pathname),
       });
-      setMessages((current) => [...current, { role: "assistant", content: response.response }]);
-      speakResponse(response.response);
+      const responseText = cleanAssistantText(response.response);
+      setMessages((current) => [...current, { role: "assistant", content: responseText }]);
+      speakResponse(responseText);
     } catch (apiError) {
       setError(apiError instanceof Error ? apiError.message : t("ai.readFailed"));
     } finally {

@@ -24,6 +24,7 @@ import { useAuth } from "../hooks/useAuth";
 import { getDashboardPathForDisability } from "../utils/disability";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
+import { TranslatedText } from "./TranslatedText";
 import { useTranslation } from "react-i18next";
 import logoSrc from "/home/zera/Documents/Baho Tech Website Redesign/images/Radiant Sun with Interlocking Arrow Logo.png";
 
@@ -85,7 +86,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Target className="h-4 w-4 shrink-0" />
-                    Mission
+                    <TranslatedText text="Mission" />
                   </Link>
                   <Link
                     to="/about#goals"
@@ -93,7 +94,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Flag className="h-4 w-4 shrink-0" />
-                    Goals
+                    <TranslatedText text="Goals" />
                   </Link>
                   <Link
                     to="/about#vision"
@@ -101,7 +102,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Eye className="h-4 w-4 shrink-0" />
-                    Vision
+                    <TranslatedText text="Vision" />
                   </Link>
                   <Link
                     to="/about#team"
@@ -109,7 +110,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Users className="h-4 w-4 shrink-0" />
-                    Team
+                    <TranslatedText text="Team" />
                   </Link>
                 </div>
               )}
@@ -131,7 +132,7 @@ export function Header() {
               {servicesDropdownOpen && (
                 <div className={`${dropdownPanelClass} mt-1 w-72 space-y-1`}>
                   <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    Services
+                    <TranslatedText text="Services" />
                   </div>
                   <Link
                     to="/services#accessibility-consulting"
@@ -139,7 +140,7 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Briefcase className="h-4 w-4 shrink-0" />
-                    Accessibility Consulting
+                    <TranslatedText text="Accessibility Consulting" />
                   </Link>
                   <Link
                     to="/services#assistive-tech-dev"
@@ -147,7 +148,7 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Cpu className="h-4 w-4 shrink-0" />
-                    Assistive Tech Development
+                    <TranslatedText text="Assistive Tech Development" />
                   </Link>
                   <Link
                     to="/services#inclusive-design"
@@ -155,35 +156,35 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Palette className="h-4 w-4 shrink-0" />
-                    Inclusive Design
+                    <TranslatedText text="Inclusive Design" />
                   </Link>
                   <div className="my-2 border-t border-[#d8e4ec]"></div>
                   <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    Products
+                    <TranslatedText text="Products" />
                   </div>
                   <Link
-                    to="/services#voice-assistant"
+                    to="/services#sense-ai"
                     className={dropdownItemClass}
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Mic className="h-4 w-4 shrink-0" />
-                    Voice Assistant
+                    Sense AI
                   </Link>
                   <Link
-                    to="/services#screen-reader"
+                    to="/services#sbs"
                     className={dropdownItemClass}
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <AudioLines className="h-4 w-4 shrink-0" />
-                    Screen Reader Plus
+                    SBS
                   </Link>
                   <Link
-                    to="/services#mobility-app"
+                    to="/services#talka"
                     className={dropdownItemClass}
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <MapPinned className="h-4 w-4 shrink-0" />
-                    Mobility Navigator
+                    Talka
                   </Link>
                 </div>
               )}
@@ -242,32 +243,32 @@ export function Header() {
               {t("nav.home")}
             </Link>
             <div className="py-2">
-              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">About Us</div>
+              <TranslatedText text="About Us" as="div" className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500" />
               <div className="pl-4 space-y-2 mt-2">
                 <Link to="/about#mission" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Target className="h-4 w-4" />
-                  Mission
+                  <TranslatedText text="Mission" />
                 </Link>
                 <Link to="/about#goals" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Flag className="h-4 w-4" />
-                  Goals
+                  <TranslatedText text="Goals" />
                 </Link>
                 <Link to="/about#vision" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Eye className="h-4 w-4" />
-                  Vision
+                  <TranslatedText text="Vision" />
                 </Link>
                 <Link to="/about#team" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Users className="h-4 w-4" />
-                  Team
+                  <TranslatedText text="Team" />
                 </Link>
               </div>
             </div>
             <div className="py-2">
-              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">Services</div>
+              <TranslatedText text="Services" as="div" className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500" />
               <div className="pl-4 space-y-2 mt-2">
                 <Link to="/services" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Briefcase className="h-4 w-4" />
-                  All Services & Products
+                  <TranslatedText text="All Services & Products" />
                 </Link>
               </div>
             </div>

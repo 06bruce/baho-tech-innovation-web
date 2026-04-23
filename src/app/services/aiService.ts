@@ -18,7 +18,13 @@ export type ChatMessage = {
 export type AiCommandAction =
   | { type: "navigate"; route: string }
   | { type: "focus"; target: string }
+  | { type: "click"; target: string }
   | { type: "type"; target: string; text: string }
+  | { type: "key"; key: string }
+  | { type: "scroll"; direction: "up" | "down" | "top" | "bottom" }
+  | { type: "logout" }
+  | { type: "theme"; theme: "light" | "dark" }
+  | { type: "language"; language: string }
   | { type: "search"; query: string }
   | { type: "readPage" }
   | { type: "none" };
