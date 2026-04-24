@@ -27,10 +27,10 @@ COPY --from=build /app/dist ./dist
 RUN mkdir -p /app/backend/data
 
 ENV NODE_ENV=production
-ENV PORT=3001
+ENV PORT=10000
 ENV HOST=0.0.0.0
-ENV CLIENT_ORIGIN=http://localhost:5173
-ENV CLIENT_ORIGINS=http://localhost:5173,http://localhost:5174
+ENV CLIENT_ORIGIN=https://baho-tech-innovation-web.onrender.com
+ENV CLIENT_ORIGINS=https://baho-tech-innovation-web.onrender.com
 ENV SESSION_TTL_DAYS=7
 ENV ADMIN_NAME="Baho Tech Admin"
 ENV ADMIN_EMAIL=admin@bahotech.com
