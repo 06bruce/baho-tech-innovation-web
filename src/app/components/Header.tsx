@@ -26,7 +26,7 @@ import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
 import { TranslatedText } from "./TranslatedText";
 import { useTranslation } from "react-i18next";
-import logoSrc from "/home/zera/Documents/Baho Tech Website Redesign/images/Radiant Sun with Interlocking Arrow Logo.png";
+import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
 
 export function Header() {
   const { t } = useTranslation();

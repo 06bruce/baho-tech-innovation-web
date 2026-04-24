@@ -1,4 +1,5 @@
 import { generateGeminiContent } from "../../services/gemini.service.js";
+import { isGeminiBusyError, sendGeminiBusyFallback } from "../../services/gemini-fallback.service.js";
 import {
   buildAiCommandPrompt,
   buildConversationPrompt,
@@ -25,59 +26,87 @@ function parseJsonResponse(text) {
 
 export async function navigationHelp(req, res, next) {
   try {
+    const language = req.body?.language || req.user?.preferred_language || "en";
     const result = await generateGeminiContent({
       prompt: buildNavigationPrompt({
         message: req.body?.message || "Help me use this page.",
         pageContext: req.body?.pageContext,
         user: req.user,
-        language: req.body?.language || req.user?.preferred_language || "en",
+        language,
       }),
     });
     res.json({ ok: true, response: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          response: "AI navigation help is temporarily limited. You can still use the page menu, tab through controls, or try again shortly.",
+        },
+      });
+    }
     next(error);
   }
 }
 
 export async function screenReaderSummary(req, res, next) {
   try {
+    const language = req.body?.language || req.user?.preferred_language || "en";
     const result = await generateGeminiContent({
       prompt: buildScreenReaderPrompt({
         pageContext: req.body?.pageContext,
         user: req.user,
-        language: req.body?.language || req.user?.preferred_language || "en",
+        language,
       }),
     });
     res.json({ ok: true, response: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          response: "The AI page summary is temporarily unavailable. You can continue with headings, landmarks, and keyboard navigation while the service recovers.",
+        },
+      });
+    }
     next(error);
   }
 }
 
 export async function conversation(req, res, next) {
   try {
+    const language = req.body?.language || req.user?.preferred_language || "en";
     const result = await generateGeminiContent({
       prompt: buildConversationPrompt({
         messages: req.body?.messages || [],
         pageContext: req.body?.pageContext,
         user: req.user,
-        language: req.body?.language || req.user?.preferred_language || "en",
+        language,
       }),
     });
     res.json({ ok: true, response: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          response: "I am temporarily overloaded, but the rest of the dashboard is still available. Please try your question again in a moment.",
+        },
+      });
+    }
     next(error);
   }
 }
 
 export async function command(req, res, next) {
   try {
+    const language = req.body?.language || req.user?.preferred_language || "en";
     const result = await generateGeminiContent({
       prompt: buildAiCommandPrompt({
         command: req.body?.command || "",
         pageContext: req.body?.pageContext,
         user: req.user,
-        language: req.body?.language || req.user?.preferred_language || "en",
+        language,
       }),
       temperature: 0.2,
     });
@@ -88,6 +117,15 @@ export async function command(req, res, next) {
       actions: Array.isArray(parsed?.actions) ? parsed.actions.slice(0, 3) : [{ type: "none" }],
     });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          response: "I heard your command, but AI command processing is temporarily busy. Please try again in a moment.",
+          actions: [{ type: "none" }],
+        },
+      });
+    }
     next(error);
   }
 }

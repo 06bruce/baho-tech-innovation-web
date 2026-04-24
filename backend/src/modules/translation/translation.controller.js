@@ -1,4 +1,5 @@
 import { SUPPORTED_LANGUAGES } from "../../models/user.model.js";
+import { isGeminiBusyError, sendGeminiBusyFallback } from "../../services/gemini-fallback.service.js";
 import { buildTranslationPrompt } from "../../services/gemini.prompt-builders.js";
 import { generateGeminiContent } from "../../services/gemini.service.js";
 
@@ -9,6 +10,7 @@ export function languageOptions(_req, res) {
 export async function translateDynamicContent(req, res, next) {
   try {
     const text = String(req.body?.text || "").trim();
+    const language = req.body?.targetLanguage || req.user?.preferred_language || "en";
     if (!text) {
       return res.status(400).json({ ok: false, error: "text is required." });
     }
@@ -19,12 +21,20 @@ export async function translateDynamicContent(req, res, next) {
     const result = await generateGeminiContent({
       prompt: buildTranslationPrompt({
         text,
-        targetLanguage: req.body?.targetLanguage || req.user?.preferred_language || "en",
+        targetLanguage: language,
       }),
     });
 
     res.json({ ok: true, output: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.targetLanguage || req.user?.preferred_language || "en",
+        payload: {
+          output: String(req.body?.text || "").trim(),
+        },
+      });
+    }
     next(error);
   }
 }

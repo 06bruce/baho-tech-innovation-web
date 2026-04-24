@@ -7,9 +7,13 @@ const db = connectDatabase();
 ensureAdminUser(db);
 
 const app = createApp();
-const server = app.listen(env.port, env.host, () => {
-  console.log(`Baho Tech API running on http://${env.host}:${env.port}`);
-});
+const server = env.host
+  ? app.listen(env.port, env.host, () => {
+      console.log(`Baho Tech API running on http://${env.host}:${env.port}`);
+    })
+  : app.listen(env.port, () => {
+      console.log(`Baho Tech API running on port ${env.port}`);
+    });
 
 server.on("error", (error) => {
   console.error("Failed to start Baho Tech API.", error);

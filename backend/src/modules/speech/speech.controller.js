@@ -1,4 +1,5 @@
 import { buildAudioTranscriptionPrompt, buildTtsOptimizationPrompt } from "../../services/gemini.prompt-builders.js";
+import { isGeminiBusyError, sendGeminiBusyFallback } from "../../services/gemini-fallback.service.js";
 import { generateGeminiContent } from "../../services/gemini.service.js";
 
 export function capabilities(_req, res) {
@@ -32,21 +33,38 @@ export async function transcribeAudio(req, res, next) {
 
     res.json({ ok: true, transcript: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          transcript: "Audio transcription is temporarily unavailable because the AI service is busy. Please try recording again shortly.",
+        },
+      });
+    }
     next(error);
   }
 }
 
 export async function optimizeTextForSpeech(req, res, next) {
   try {
+    const text = String(req.body?.text || "");
     const result = await generateGeminiContent({
       prompt: buildTtsOptimizationPrompt({
-        text: req.body?.text || "",
+        text,
         language: req.body?.language || req.user?.preferred_language || "en",
       }),
     });
 
     res.json({ ok: true, text: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          text: String(req.body?.text || ""),
+        },
+      });
+    }
     next(error);
   }
 }

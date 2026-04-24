@@ -1,3 +1,4 @@
+import { isGeminiBusyError, sendGeminiBusyFallback } from "../../services/gemini-fallback.service.js";
 import { buildSignLanguagePrompt } from "../../services/gemini.prompt-builders.js";
 import { generateGeminiContent } from "../../services/gemini.service.js";
 
@@ -14,6 +15,14 @@ export async function interpretGesture(req, res, next) {
     });
     res.json({ ok: true, interpretation: result.text });
   } catch (error) {
+    if (isGeminiBusyError(error)) {
+      return sendGeminiBusyFallback(res, {
+        language: req.body?.language || req.user?.preferred_language || "en",
+        payload: {
+          interpretation: "Sign-language interpretation is temporarily unavailable because the AI service is busy. Please try again shortly.",
+        },
+      });
+    }
     next(error);
   }
 }
