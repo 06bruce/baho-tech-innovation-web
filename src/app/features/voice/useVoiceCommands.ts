@@ -2,7 +2,7 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { speechService } from "../../services/speechService";
 import { fileToBase64 } from "../../utils/pageContext";
 
-const WAKE_WORD = "hey baho";
+const WAKE_WORD = "wake up";
 const COMMAND_RECORD_MS = 5000;
 
 type Command = {
@@ -84,7 +84,7 @@ export function useVoiceCommands(commands: Command[], language: string, token?: 
         setError(message);
       } finally {
         processingRef.current = false;
-        publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
+        publishVoiceStatus("listening", "Say \"Wake Up\" to activate");
       }
     },
     [handleTranscript, language, token]
@@ -100,7 +100,7 @@ export function useVoiceCommands(commands: Command[], language: string, token?: 
       stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     } catch {
       awaitingCommandRef.current = false;
-      publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
+      publishVoiceStatus("listening", "Say \"Wake Up\" to activate");
       return;
     }
 
@@ -160,7 +160,7 @@ export function useVoiceCommands(commands: Command[], language: string, token?: 
     sr.start();
     setError("");
     setIsListening(true);
-    publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
+    publishVoiceStatus("listening", "Say \"Wake Up\" to activate");
   }, [isListening, language, recordCommand, supported, token]);
 
   const stop = useCallback(() => {

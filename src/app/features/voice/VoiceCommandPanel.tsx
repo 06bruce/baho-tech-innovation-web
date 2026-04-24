@@ -96,7 +96,7 @@ export function VoiceCommandPanel() {
       <div className="mt-3 space-y-3">
         {!supported && <FormAlert tone="error">{t("voice.unsupported")}</FormAlert>}
         {error && <FormAlert tone="error">{error}</FormAlert>}
-        <FormAlert tone="info">{t("voice.wakeHint")} — say <strong>"Hey Baho"</strong> to activate</FormAlert>
+        <FormAlert tone="info">{t("voice.wakeHint")} — say <strong>"Wake Up"</strong> to activate</FormAlert>
         {lastCommand && <FormAlert tone="info">{t("voice.lastHeard")}: {lastCommand}</FormAlert>}
       </div>
       <div className="mt-4 flex flex-wrap gap-3">
