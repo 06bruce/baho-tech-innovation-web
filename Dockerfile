@@ -36,7 +36,7 @@ ENV SMTP_PORT=587
 ENV SMTP_SECURE=false
 ENV SMTP_FROM=no-reply@bahotech.com
 ENV SMTP_TO=contact@bahotech.com
-ENV GEMINI_MODEL=gemini-2.5-flash
+ENV GEMINI_MODELS=gemini-2.5-flash,gemini-2.5-flash-lite
 
 EXPOSE 3001
 

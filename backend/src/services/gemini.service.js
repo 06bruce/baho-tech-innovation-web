@@ -22,6 +22,48 @@ function extractText(payload) {
   );
 }
 
+function getPromptBlockReason(payload) {
+  return payload?.promptFeedback?.blockReason || null;
+}
+
+function getCandidate(payload) {
+  return payload?.candidates?.[0] || null;
+}
+
+function getCandidateFinishReason(payload) {
+  return getCandidate(payload)?.finishReason || null;
+}
+
+function getCandidateFinishMessage(payload) {
+  return getCandidate(payload)?.finishMessage || null;
+}
+
+function getGeminiFailureDetails(payload) {
+  const promptBlockReason = getPromptBlockReason(payload);
+  const finishReason = getCandidateFinishReason(payload);
+  const finishMessage = getCandidateFinishMessage(payload);
+  return { promptBlockReason, finishReason, finishMessage };
+}
+
+function createGeminiPayloadError(payload, model) {
+  const { promptBlockReason, finishReason, finishMessage } = getGeminiFailureDetails(payload);
+  const reason = promptBlockReason || finishReason || "EMPTY_RESPONSE";
+  const message =
+    finishMessage ||
+    (promptBlockReason
+      ? `Gemini blocked the prompt (${promptBlockReason}).`
+      : finishReason
+        ? `Gemini returned no text output (${finishReason}).`
+        : "Gemini returned no text output.");
+
+  const error = new Error(message);
+  error.status = reason === "SAFETY" || promptBlockReason ? 400 : 502;
+  error.code = reason === "SAFETY" || promptBlockReason ? "GEMINI_BLOCKED" : "GEMINI_EMPTY_RESPONSE";
+  error.providerModel = model;
+  error.providerReason = reason;
+  return error;
+}
+
 function parseDurationMs(value) {
   const match = String(value || "").match(/(\d+(?:\.\d+)?)s/);
   return match ? Math.ceil(parseFloat(match[1]) * 1000) : null;
@@ -64,9 +106,12 @@ async function requestGeminiContent({ model, parts, temperature }) {
 
 function createGeminiError(response, payload, model) {
   const isQuotaError = response.status === 429;
+  const isTransientError = response.status === 500 || response.status === 503;
   const error = new Error(
     isQuotaError
       ? "Gemini is temporarily busy or quota-limited. Please try again in a moment."
+      : isTransientError
+        ? payload?.error?.message || "Gemini is temporarily unavailable. Please try again in a moment."
       : payload?.error?.message || "Gemini request failed."
   );
   error.status = response.status;
@@ -75,6 +120,8 @@ function createGeminiError(response, payload, model) {
   error.retryAfterMs = getRetryDelayMs(payload);
   if (isQuotaError) {
     error.code = "GEMINI_BUSY";
+  } else if (isTransientError) {
+    error.code = "GEMINI_UNAVAILABLE";
   }
   return error;
 }
@@ -122,13 +169,18 @@ async function generateWithGeminiModels({ prompt, inlineData, temperature }) {
       const { response, payload } = await requestGeminiContent({ model, parts, temperature });
 
       if (response.ok) {
-        return { text: extractText(payload), raw: payload, model };
+        const text = extractText(payload);
+        if (text) {
+          return { text, raw: payload, model };
+        }
+
+        throw createGeminiPayloadError(payload, model);
       }
 
       const error = createGeminiError(response, payload, model);
       lastError = error;
 
-      if (response.status !== 429) {
+      if (response.status !== 429 && response.status !== 500 && response.status !== 503) {
         throw error;
       }
 
