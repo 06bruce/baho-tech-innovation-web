@@ -2,10 +2,15 @@ import { useCallback, useMemo, useRef, useState } from "react";
 import { speechService } from "../../services/speechService";
 import { fileToBase64 } from "../../utils/pageContext";
 
+const WAKE_WORD = "hey baho";
+const COMMAND_RECORD_MS = 5000;
+
 type Command = {
   phrase: string;
   action: (transcript: string) => void;
 };
+
+type SpeechRecognitionEvent = Event & { results: SpeechRecognitionResultList };
 
 function normalizeCommand(text: string) {
   return text
@@ -19,10 +24,23 @@ function publishVoiceStatus(state: "idle" | "listening" | "processing", message?
   window.dispatchEvent(new CustomEvent("baho-voice-status", { detail: { state, message } }));
 }
 
+function createSpeechRecognition(language: string): SpeechRecognition | null {
+  const SR = (window as unknown as { SpeechRecognition?: new () => SpeechRecognition; webkitSpeechRecognition?: new () => SpeechRecognition }).SpeechRecognition
+    ?? (window as unknown as { webkitSpeechRecognition?: new () => SpeechRecognition }).webkitSpeechRecognition;
+  if (!SR) return null;
+  const sr = new SR();
+  sr.continuous = true;
+  sr.interimResults = false;
+  sr.lang = language;
+  return sr;
+}
+
 export function useVoiceCommands(commands: Command[], language: string, token?: string | null, onUnhandledCommand?: (transcript: string) => void) {
   const recorderRef = useRef<MediaRecorder | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
+  const srRef = useRef<SpeechRecognition | null>(null);
   const processingRef = useRef(false);
+  const awaitingCommandRef = useRef(false);
   const [isListening, setIsListening] = useState(false);
   const [lastCommand, setLastCommand] = useState("");
   const [error, setError] = useState("");
@@ -66,11 +84,46 @@ export function useVoiceCommands(commands: Command[], language: string, token?: 
         setError(message);
       } finally {
         processingRef.current = false;
-        if (recorderRef.current?.state === "recording") publishVoiceStatus("listening", "Voice control active");
+        publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
       }
     },
     [handleTranscript, language, token]
   );
+
+  const recordCommand = useCallback(async () => {
+    if (awaitingCommandRef.current) return;
+    awaitingCommandRef.current = true;
+    publishVoiceStatus("processing", "Listening for command...");
+
+    let stream: MediaStream;
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    } catch {
+      awaitingCommandRef.current = false;
+      publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
+      return;
+    }
+
+    const preferredType = MediaRecorder.isTypeSupported("audio/ogg;codecs=opus")
+      ? "audio/ogg;codecs=opus"
+      : MediaRecorder.isTypeSupported("audio/ogg")
+        ? "audio/ogg"
+        : "audio/webm";
+
+    const recorder = new MediaRecorder(stream, { mimeType: preferredType });
+    const chunks: Blob[] = [];
+
+    recorder.ondataavailable = (e) => { if (e.data.size > 0) chunks.push(e.data); };
+    recorder.onstop = () => {
+      stream.getTracks().forEach((t) => t.stop());
+      awaitingCommandRef.current = false;
+      const blob = new Blob(chunks, { type: preferredType });
+      void processAudio(blob);
+    };
+
+    recorder.start();
+    setTimeout(() => { if (recorder.state === "recording") recorder.stop(); }, COMMAND_RECORD_MS);
+  }, [processAudio]);
 
   const start = useCallback(async () => {
     if (!supported || !token) {
@@ -78,50 +131,41 @@ export function useVoiceCommands(commands: Command[], language: string, token?: 
       return;
     }
 
-    let stream: MediaStream;
-    try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-    } catch (captureError) {
-      const name = captureError instanceof DOMException ? captureError.name : "";
-      setError(name === "NotAllowedError" ? "Microphone permission was blocked. Please allow microphone access and try again." : "Could not start voice command recording.");
-      setIsListening(false);
-      publishVoiceStatus("idle");
+    const sr = createSpeechRecognition(language);
+    if (!sr) {
+      setError("Wake word detection is not supported in this browser.");
       return;
     }
-    const preferredType = MediaRecorder.isTypeSupported("audio/ogg;codecs=opus")
-      ? "audio/ogg;codecs=opus"
-      : MediaRecorder.isTypeSupported("audio/ogg")
-        ? "audio/ogg"
-        : "audio/webm";
-    const recorder = new MediaRecorder(stream, { mimeType: preferredType });
-    streamRef.current = stream;
-    recorderRef.current = recorder;
-    recorder.ondataavailable = (event) => {
-      if (event.data.size > 0) void processAudio(event.data);
+
+    sr.onresult = (event: SpeechRecognitionEvent) => {
+      const transcript = Array.from(event.results)
+        .map((r) => r[0].transcript)
+        .join(" ");
+      if (normalizeCommand(transcript).includes(normalizeCommand(WAKE_WORD))) {
+        void recordCommand();
+      }
     };
-    recorder.onerror = () => {
-      setError("Voice command recording failed.");
-      setIsListening(false);
-      publishVoiceStatus("idle");
+
+    sr.onerror = (e: Event & { error?: string }) => {
+      if (e.error !== "no-speech" && e.error !== "aborted") {
+        setError("Wake word detection error.");
+      }
     };
-    recorder.onstop = () => {
-      stream.getTracks().forEach((track) => track.stop());
-      setIsListening(false);
-      if (recorderRef.current === recorder) publishVoiceStatus("idle");
+
+    sr.onend = () => {
+      if (srRef.current === sr && isListening) sr.start();
     };
-    try {
-      recorder.start(5000);
-      setError("");
-      setIsListening(true);
-      publishVoiceStatus("listening", "Voice control active");
-    } catch (_error) {
-      setIsListening(false);
-      publishVoiceStatus("idle");
-      setError("Could not start voice command recording. Please try again.");
-    }
-  }, [processAudio, supported, token]);
+
+    srRef.current = sr;
+    sr.start();
+    setError("");
+    setIsListening(true);
+    publishVoiceStatus("listening", "Say \"Hey Baho\" to activate");
+  }, [isListening, language, recordCommand, supported, token]);
 
   const stop = useCallback(() => {
+    srRef.current?.stop();
+    srRef.current = null;
     const recorder = recorderRef.current;
     if (recorder && recorder.state !== "inactive") recorder.stop();
     streamRef.current?.getTracks().forEach((track) => track.stop());
