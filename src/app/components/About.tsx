@@ -325,20 +325,12 @@ export function About() {
                 to={`/team/${member.slug}`}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 block min-w-[280px] max-w-[320px] snap-start"
               >
-                <div className="h-56 bg-gray-100 flex items-center justify-center border-b border-gray-200">
-                  {member.slug === "nancy-teta-kwizera" ||
-                  member.slug === "iyizire-corail" ||
-                  member.slug === "zainab-elmukshfi" ? (
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : (
-                    <div className="text-sm uppercase tracking-[0.25em] text-gray-400">
-                      Image Coming Soon
-                    </div>
-                  )}
+                <div className="h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="h-full w-full object-cover"
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="text-xl text-gray-900 mb-1 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">

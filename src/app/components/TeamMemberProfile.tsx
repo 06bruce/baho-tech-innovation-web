@@ -35,18 +35,12 @@ export function TeamMemberProfile() {
           <div className="relative">
             <div className="absolute -left-6 -top-6 h-16 w-16 rounded-full border-2 border-[#FEC629]/60"></div>
             <div className="absolute -right-6 -bottom-6 h-20 w-20 rounded-full border-2 border-[#1A4F8D]/30"></div>
-          <div className="rounded-[28px] overflow-hidden shadow-xl border border-gray-200 bg-transparent flex items-center justify-center min-h-[420px]">
-            {member.slug === "nancy-teta-kwizera" || member.slug === "iyizire-corail" || member.slug === "zainab-elmukshfi" ? (
-              <img
-                src={member.image}
-                alt={member.name}
-                className="h-full w-full object-cover"
-              />
-            ) : (
-              <div className="text-sm uppercase tracking-[0.25em] text-gray-400">
-                Image Coming Soon
-              </div>
-            )}
+          <div className="rounded-[28px] overflow-hidden shadow-xl border border-gray-200 bg-transparent flex items-center justify-center min-h-[300px]">
+            <img
+              src={member.image}
+              alt={member.name}
+              className="h-full w-full object-cover"
+            />
           </div>
             <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
               <div className="text-xs uppercase tracking-[0.25em] text-gray-400">Role</div>
