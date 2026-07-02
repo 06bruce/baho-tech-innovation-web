@@ -32,7 +32,7 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "iyizire-corail",
     name: "IYIZIRE Corail",
-    role: "Backend Developer",
+    role: "Tech Team",
     bio: "Building reliable, secure systems that power accessible digital experiences.",
     story: [
       "Corail designs resilient APIs and data pipelines that keep assistive tools fast and dependable. She specializes in scalable architecture, focusing on fault tolerance, data integrity, and latency reduction for real‑time experiences.",
@@ -44,7 +44,7 @@ export const teamMembers: TeamMember[] = [
   {
     slug: "murungi-martha",
     name: "Murungi Martha",
-    role: "Frontend Developer",
+    role: "Tech Team",
     bio: "Crafting intuitive, accessible interfaces with a focus on performance and usability.",
     story: [
       "Martha builds thoughtful interfaces that meet accessibility standards without sacrificing speed or clarity. She is meticulous about semantic structure, keyboard navigation, and screen‑reader compatibility, treating accessibility requirements as a design opportunity rather than a checklist.",
