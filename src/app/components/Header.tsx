@@ -197,7 +197,7 @@ export function Header() {
             <LanguageSwitcher compact />
             <ThemeToggle />
 
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <Link
                 to={dashboardPath}
                 className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white transition-colors hover:bg-[#1C5B78]"
@@ -205,20 +205,6 @@ export function Header() {
                 <LayoutDashboard className="h-4 w-4" />
                 {t("nav.dashboard")}
               </Link>
-            ) : (
-              <>
-                <Link to="/login" className={linkBaseClass}>
-                  <LogIn className="h-4 w-4" />
-                  {t("nav.login")}
-                </Link>
-                <Link
-                  to="/signup"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white transition-colors hover:bg-[#1C5B78]"
-                >
-                  <UserPlus className="h-4 w-4" />
-                  {t("nav.signup")}
-                </Link>
-              </>
             )}
           </div>
 
@@ -280,7 +266,7 @@ export function Header() {
               <LanguageSwitcher />
               <ThemeToggle />
             </div>
-            {isAuthenticated ? (
+            {isAuthenticated && (
               <Link
                 to={dashboardPath}
                 className="mt-4 inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white hover:bg-[#1C5B78]"
@@ -289,25 +275,6 @@ export function Header() {
                 <LayoutDashboard className="h-4 w-4" />
                 {t("nav.dashboard")}
               </Link>
-            ) : (
-              <div className="mt-4 flex flex-wrap gap-3">
-                <Link
-                  to="/login"
-                  className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-6 py-2 text-[#1A4F8D] hover:bg-[#eef5f9]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <LogIn className="h-4 w-4" />
-                  {t("nav.login")}
-                </Link>
-                <Link
-                  to="/signup"
-                  className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-2 text-white hover:bg-[#1C5B78]"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  <UserPlus className="h-4 w-4" />
-                  {t("nav.signup")}
-                </Link>
-              </div>
             )}
           </div>
         )}

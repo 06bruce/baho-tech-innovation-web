@@ -21,7 +21,7 @@ export function NewsCarousel() {
         <div className="grid grid-cols-2 gap-2 bg-[#0B1F33] p-3 sm:grid-cols-3">
           {meetingImages.map((image, index) => (
             <div
-              key={image.src}
+              key={image.alt}
               className={index === 0 ? "col-span-2 row-span-2 aspect-[4/3] overflow-hidden rounded-xl sm:col-span-2" : "aspect-square overflow-hidden rounded-xl"}
             >
               <img src={image.src} alt={image.alt} className="h-full w-full object-cover" loading="lazy" />

@@ -1,25 +1,27 @@
+import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import { Root } from "./components/Root";
-import { Home } from "./components/Home";
-import { About } from "./components/About";
-import { Services } from "./components/Services";
-import { Contact } from "./components/Contact";
-import { TeamMemberProfile } from "./components/TeamMemberProfile";
-import { LoginPage } from "./pages/auth/LoginPage";
-import { RegisterPage } from "./pages/auth/RegisterPage";
 import { RequireAuth } from "./guards/RequireAuth";
 import { RequireAdmin } from "./guards/RequireAdmin";
 import { RequireDisability } from "./guards/RequireDisability";
-import { DashboardRedirect } from "./pages/dashboard/DashboardRedirect";
 import { DashboardLayout } from "./components/dashboard/DashboardLayout";
-import { AdminDashboard } from "./pages/admin/AdminDashboard";
-import { AdminUsersPage } from "./pages/admin/AdminUsersPage";
-import { AdminUserDetailsPage } from "./pages/admin/AdminUserDetailsPage";
-import { AdminSettingsPage } from "./pages/admin/AdminSettingsPage";
-import { BlindDashboard } from "./pages/dashboard/BlindDashboard";
-import { DeafDashboard } from "./pages/dashboard/DeafDashboard";
-import { MuteDashboard } from "./pages/dashboard/MuteDashboard";
-import { MobilityDashboard } from "./pages/dashboard/MobilityDashboard";
+
+const Home = lazy(() => import("./components/Home").then(m => ({ default: m.Home })));
+const About = lazy(() => import("./components/About").then(m => ({ default: m.About })));
+const Services = lazy(() => import("./components/Services").then(m => ({ default: m.Services })));
+const Contact = lazy(() => import("./components/Contact").then(m => ({ default: m.Contact })));
+const TeamMemberProfile = lazy(() => import("./components/TeamMemberProfile").then(m => ({ default: m.TeamMemberProfile })));
+const LoginPage = lazy(() => import("./pages/auth/LoginPage").then(m => ({ default: m.LoginPage })));
+const RegisterPage = lazy(() => import("./pages/auth/RegisterPage").then(m => ({ default: m.RegisterPage })));
+const DashboardRedirect = lazy(() => import("./pages/dashboard/DashboardRedirect").then(m => ({ default: m.DashboardRedirect })));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard").then(m => ({ default: m.AdminDashboard })));
+const AdminUsersPage = lazy(() => import("./pages/admin/AdminUsersPage").then(m => ({ default: m.AdminUsersPage })));
+const AdminUserDetailsPage = lazy(() => import("./pages/admin/AdminUserDetailsPage").then(m => ({ default: m.AdminUserDetailsPage })));
+const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage").then(m => ({ default: m.AdminSettingsPage })));
+const BlindDashboard = lazy(() => import("./pages/dashboard/BlindDashboard").then(m => ({ default: m.BlindDashboard })));
+const DeafDashboard = lazy(() => import("./pages/dashboard/DeafDashboard").then(m => ({ default: m.DeafDashboard })));
+const MuteDashboard = lazy(() => import("./pages/dashboard/MuteDashboard").then(m => ({ default: m.MuteDashboard })));
+const MobilityDashboard = lazy(() => import("./pages/dashboard/MobilityDashboard").then(m => ({ default: m.MobilityDashboard })));
 
 export const router = createBrowserRouter([
   {
