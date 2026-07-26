@@ -12,8 +12,8 @@ import {
   Globe,
   TrendingUp
 } from "lucide-react";
-import heroBg from "../../../images/1-transparent.png";
-import newsBg from "../../../images/4.jpeg";
+import heroBg from "../../../images/1-transparent.png?url";
+import newsBg from "../../../images/4.jpeg?url";
 
 export function Home() {
   const serviceNodes = [

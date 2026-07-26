@@ -1,0 +1,1 @@
+import{j as r,N as t}from"./vendor-DjLAC9B-.js";import{u as o,P as i,g as s}from"./index-BQwCxwnV.js";function p(){const{user:a,isLoading:e}=o();return e?r.jsx(i,{label:"Opening your workspace"}):(a==null?void 0:a.role)==="admin"?r.jsx(t,{to:"/admin/dashboard",replace:!0}):r.jsx(t,{to:s(a==null?void 0:a.disabilityCategory),replace:!0})}export{p as DashboardRedirect};

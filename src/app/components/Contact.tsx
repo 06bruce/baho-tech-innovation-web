@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Send, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
-import contactHero from "../../../images/4.jpeg";
+import contactHero from "../../../images/4.jpeg?url";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -17,8 +17,7 @@ export function Contact() {
     setStatus("sending");
     setErrorMessage("");
 
-    const apiBase = import.meta.env.VITE_API_BASE_URL || "";
-    const endpoint = apiBase ? `${apiBase}/api/contact` : "/api/contact";
+    const endpoint = "/api/contact";
 
     try {
       const response = await fetch(endpoint, {
