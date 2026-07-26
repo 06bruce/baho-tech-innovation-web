@@ -126,9 +126,6 @@ export function LoginPage() {
 
           <p className="mt-6 text-center text-gray-600">
             {t("auth.noAccount")}{" "}
-            <Link to="/signup" className="font-semibold text-[#1A4F8D] underline-offset-4 hover:underline">
-              Sign up
-            </Link>
           </p>
         </form>
     </AuthSplitLayout>
