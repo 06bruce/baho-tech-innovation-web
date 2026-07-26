@@ -1,0 +1,1 @@
+import{e as r}from"./index-DA7fqxoF.js";const a={getOverview(e){return r("/admin/stats",{method:"GET",authToken:e})},getUsers(e,t={}){return r("/admin/users",{method:"GET",authToken:e,query:t})},getUser(e,t){return r(`/admin/users/${t}`,{method:"GET",authToken:e})}};export{a};
