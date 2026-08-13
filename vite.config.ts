@@ -15,7 +15,12 @@ export default defineConfig({
   },
   server: {
     proxy: {
-      '/api': 'http://127.0.0.1:3001',
+      '/api': {
+        target: 'http://127.0.0.1:3001',
+        changeOrigin: true,
+        rewrite: (path) => path,
+        ws: true,
+      },
     },
   },
   build: {
@@ -26,6 +31,19 @@ export default defineConfig({
         },
       },
     },
+    // Source maps for production error tracking
+    sourcemap: process.env.NODE_ENV !== 'production',
+    // Optimize build size
+    minify: 'terser',
+    // Show build analysis
+    reportCompressedSize: true,
   },
   assetsInclude: ['**/*.svg', '**/*.csv'],
+  // Environment variable validation
+  define: {
+    'process.env.VITE_API_BASE_URL': JSON.stringify(
+      process.env.VITE_API_BASE_URL || '/api'
+    ),
+  },
 })
+
