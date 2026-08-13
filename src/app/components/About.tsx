@@ -147,19 +147,19 @@ export function About() {
               <ul className="space-y-4">
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Develop innovative assistive technologies that empower people with disabilities to navigate the digital world with confidence and independence.</p>
+                  <p className="text-lg text-gray-700">Innovate cutting-edge assistive technologies and inclusive digital solutions that enable people with disabilities to participate fully in society with dignity, autonomy, and equal access.</p>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Partner with organizations worldwide to implement accessibility best practices and create inclusive digital experiences.</p>
+                  <p className="text-lg text-gray-700">Deliver professional accessibility consulting and WCAG-compliant development services that transform organizations into inclusive digital leaders.</p>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Educate and train the next generation of developers and designers in accessibility-first design principles.</p>
+                  <p className="text-lg text-gray-700">Establish industry standards and best practices in accessible design through training, workshops, and evidence-based methodologies that create lasting impact.</p>
                 </li>
                 <li className="flex items-start">
                   <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Advocate for stronger accessibility standards and policies at local, national, and international levels.</p>
+                  <p className="text-lg text-gray-700">Champion inclusive technology policy and advocate for accessibility regulations that ensure no one is left behind in the digital transformation.</p>
                 </li>
               </ul>
             </div>

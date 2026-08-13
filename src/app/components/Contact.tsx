@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { MapPin, Phone, Mail, Send, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
 import contactHero from "../../../images/4.jpeg?url";
+import { LeafletMap } from "./LeafletMap";
 
 export function Contact() {
   const [formData, setFormData] = useState({
@@ -202,9 +203,9 @@ export function Contact() {
                       Address
                     </h3>
                     <p className="text-gray-600">
-                      123 Innovation Street<br />
-                      Tech City, TC 12345<br />
-                      United States
+                      Norrsken House Kigali<br />
+                      1 KN 78 St, Kigali<br />
+                      Rwanda
                     </p>
                   </div>
                 </div>
@@ -230,8 +231,8 @@ export function Contact() {
                     <h3 className="text-lg text-gray-900 mb-1 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
                       Email
                     </h3>
-                    <p className="text-gray-600">Email: Coming Soon</p>
-                    <p className="text-gray-600">support@bahotech.com</p>
+                    <p className="text-gray-600">Email:</p>
+                    <p className="text-gray-600">bahoinclusivetech@gmail.com</p>
                   </div>
                 </div>
               </div>
@@ -286,13 +287,8 @@ export function Contact() {
           <h2 className="text-3xl text-gray-900 mb-8 text-center relative inline-block after:content-[''] after:absolute after:left-1/2 after:-bottom-2 after:h-1 after:w-1/2 after:-translate-x-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
             Find Us
           </h2>
-          <div className="rounded-2xl overflow-hidden shadow-lg h-96 bg-gray-300 flex items-center justify-center">
-            {/* Placeholder for map - in production, this would use Google Maps or similar */}
-            <div className="text-center">
-              <MapPin className="w-16 h-16 text-[#1A4F8D] mx-auto mb-4" />
-              <p className="text-gray-600 text-lg">Interactive Map</p>
-              <p className="text-gray-500">123 Innovation Street, Tech City, TC 12345</p>
-            </div>
+          <div className="rounded-2xl overflow-hidden shadow-lg h-96">
+            <LeafletMap />
           </div>
         </div>
       </section>

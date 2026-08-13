@@ -76,10 +76,10 @@ export function Footer() {
               Contact
             </h3>
             <ul className="space-y-2 text-gray-400">
-              <li>Email: Coming Soon</li>
+              <li>Email: bahoinclusivetech@gmail.com</li>
               <li>+250 798745247</li>
-              <li>123 Innovation Street</li>
-              <li>kigali, Rwanda</li>
+              <li>Norrsken House Kigali</li>
+              <li>1 KN 78 St, Kigali, Rwanda</li>
             </ul>
           </div>
 
