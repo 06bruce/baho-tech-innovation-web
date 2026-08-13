@@ -230,9 +230,6 @@ export function RegisterPage() {
 
           <p className="mt-6 text-center text-gray-600">
             {t("auth.hasAccount")}{" "}
-            <Link to="/login" className="font-semibold text-[#1A4F8D] underline-offset-4 hover:underline">
-              Login
-            </Link>
           </p>
         </form>
     </AuthSplitLayout>
