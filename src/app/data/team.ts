@@ -7,16 +7,16 @@ export type TeamMember = {
   image: string;
 };
 
-const ceoImage = "/images/ceo.png";
-const corailImage = "/images/corail.png";
-const zainabImage = "/images/zainab.png";
-const marthaImage = "/images/martha.png";
-const gislaineImage = "/images/gislaine.png";
-const norahImage = "/images/norah.png";
-const johnsonImage = "/images/a.jpeg";
-const valentinImage = "/images/b.jpeg";
-const rogersImage = "/images/c.jpeg";
-const bruceImage = "/images/d.jpeg";
+import ceoImage from "../../../images/ceo.png";
+import corailImage from "../../../images/corail.png";
+import zainabImage from "../../../images/zainab.png";
+import marthaImage from "../../../images/martha.png";
+import gislaineImage from "../../../images/gislaine.png";
+import norahImage from "../../../images/norah.png";
+import johnsonImage from "../../../images/a.jpeg";
+import valentinImage from "../../../images/b.jpeg";
+import rogersImage from "../../../images/c.jpeg";
+import bruceImage from "../../../images/d.jpeg";
 
 export const teamMembers: TeamMember[] = [
   {
