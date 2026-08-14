@@ -1,0 +1,1 @@
+import{e}from"./index-CPnkAWjo.js";const t={getOverview:t=>e("/admin/stats",{method:"GET",authToken:t}),getUsers:(t,s={})=>e("/admin/users",{method:"GET",authToken:t,query:s}),getUser:(t,s)=>e(`/admin/users/${s}`,{method:"GET",authToken:t})};export{t as a};
