@@ -65,7 +65,7 @@ export function About() {
     }
   }, [location]);
 
-  return (
+  return ( 
     <div className="overflow-hidden">
       {/* Hero Section */}
       <section className="relative bg-[#1A4F8D] text-white py-20">

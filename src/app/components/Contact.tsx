@@ -231,7 +231,7 @@ export function Contact() {
                     <h3 className="text-lg text-gray-900 mb-1 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
                       Email
                     </h3>
-                    <p className="text-gray-600">Email:</p>
+                    {/* <p className="text-gray-600">Email:</p> */}
                     <p className="text-gray-600">bahoinclusivetech@gmail.com</p>
                   </div>
                 </div>
