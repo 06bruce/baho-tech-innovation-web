@@ -33,6 +33,8 @@ export const router = createBrowserRouter([
       { path: "services", Component: Services },
       { path: "team/:slug", Component: TeamMemberProfile },
       { path: "contact", Component: Contact },
+      { path: "login", Component: LoginPage },
+      { path: "register", Component: RegisterPage },
     ],
   },
   {
