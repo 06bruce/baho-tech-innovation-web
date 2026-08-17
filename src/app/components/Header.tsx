@@ -23,8 +23,6 @@ import {
 import { useAuth } from "../hooks/useAuth";
 import { getDashboardPathForDisability } from "../utils/disability";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-import { ThemeToggle } from "./ThemeToggle";
-import { TranslatedText } from "./TranslatedText";
 import { useTranslation } from "react-i18next";
 import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
 
@@ -86,7 +84,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Target className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Mission" />
+                    {t("nav.mission")}
                   </Link>
                   <Link
                     to="/about#goals"
@@ -94,7 +92,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Flag className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Goals" />
+                    {t("nav.goals")}
                   </Link>
                   <Link
                     to="/about#vision"
@@ -102,7 +100,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Eye className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Vision" />
+                    {t("nav.vision")}
                   </Link>
                   <Link
                     to="/about#team"
@@ -110,7 +108,7 @@ export function Header() {
                     onClick={() => setAboutDropdownOpen(false)}
                   >
                     <Users className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Team" />
+                    {t("nav.team")}
                   </Link>
                 </div>
               )}
@@ -132,7 +130,7 @@ export function Header() {
               {servicesDropdownOpen && (
                 <div className={`${dropdownPanelClass} mt-1 w-72 space-y-1`}>
                   <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    <TranslatedText text="Services" />
+                    {t("nav.services")}
                   </div>
                   <Link
                     to="/services#accessibility-consulting"
@@ -140,7 +138,7 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Briefcase className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Accessibility Consulting" />
+                    {t("services.offerings.consulting.title")}
                   </Link>
                   <Link
                     to="/services#assistive-tech-dev"
@@ -148,7 +146,7 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Cpu className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Assistive Tech Development" />
+                    {t("services.offerings.assistiveDev.title")}
                   </Link>
                   <Link
                     to="/services#inclusive-design"
@@ -156,11 +154,11 @@ export function Header() {
                     onClick={() => setServicesDropdownOpen(false)}
                   >
                     <Palette className="h-4 w-4 shrink-0" />
-                    <TranslatedText text="Inclusive Design" />
+                    {t("services.offerings.inclusiveDesign.title")}
                   </Link>
                   <div className="my-2 border-t border-[#d8e4ec]"></div>
                   <div className="px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500">
-                    <TranslatedText text="Products" />
+                    {t("nav.products")}
                   </div>
                   <Link
                     to="/services#sense-ai"
@@ -195,7 +193,6 @@ export function Header() {
               {t("nav.contact")}
             </Link>
             <LanguageSwitcher compact />
-            <ThemeToggle />
 
             {isAuthenticated && (
               <Link
@@ -229,32 +226,32 @@ export function Header() {
               {t("nav.home")}
             </Link>
             <div className="py-2">
-              <TranslatedText text="About Us" as="div" className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500" />
+              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">{t("nav.about")}</div>
               <div className="pl-4 space-y-2 mt-2">
                 <Link to="/about#mission" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Target className="h-4 w-4" />
-                  <TranslatedText text="Mission" />
+                  {t("nav.mission")}
                 </Link>
                 <Link to="/about#goals" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Flag className="h-4 w-4" />
-                  <TranslatedText text="Goals" />
+                  {t("nav.goals")}
                 </Link>
                 <Link to="/about#vision" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Eye className="h-4 w-4" />
-                  <TranslatedText text="Vision" />
+                  {t("nav.vision")}
                 </Link>
                 <Link to="/about#team" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Users className="h-4 w-4" />
-                  <TranslatedText text="Team" />
+                  {t("nav.team")}
                 </Link>
               </div>
             </div>
             <div className="py-2">
-              <TranslatedText text="Services" as="div" className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500" />
+              <div className="px-4 text-sm font-semibold uppercase tracking-[0.2em] text-gray-500">{t("nav.services")}</div>
               <div className="pl-4 space-y-2 mt-2">
                 <Link to="/services" className="flex items-center gap-3 rounded-2xl px-4 py-3 text-gray-600 transition-colors hover:bg-[#eef5f9] hover:text-[#1C5B78]" onClick={() => setMobileMenuOpen(false)}>
                   <Briefcase className="h-4 w-4" />
-                  <TranslatedText text="All Services & Products" />
+                  {t("nav.allServices")}
                 </Link>
               </div>
             </div>
@@ -264,7 +261,6 @@ export function Header() {
             </Link>
             <div className="mt-3 flex flex-wrap gap-3 px-4">
               <LanguageSwitcher />
-              <ThemeToggle />
             </div>
             {isAuthenticated && (
               <Link

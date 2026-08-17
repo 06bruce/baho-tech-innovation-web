@@ -56,8 +56,8 @@ export function SignLanguagePanel() {
   }
 
   return (
-    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="sign-title">
-      <h3 id="sign-title" className="text-2xl font-semibold text-gray-950 dark:text-white">{t("sign.title")}</h3>
+    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm" aria-labelledby="sign-title">
+      <h3 id="sign-title" className="text-2xl font-semibold text-gray-950">{t("sign.title")}</h3>
       <div className="mt-4 space-y-3">
         {error && <FormAlert tone="error">{error}</FormAlert>}
         {interpretation && <FormAlert tone="success">{interpretation}</FormAlert>}
@@ -68,10 +68,10 @@ export function SignLanguagePanel() {
           <button type="button" onClick={() => void startCamera()} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1A4F8D] px-5 py-3 font-semibold text-white hover:bg-[#1C5B78]">
             <Camera className="h-5 w-5" aria-hidden="true" /> {t("sign.startCamera")}
           </button>
-          <button type="button" onClick={captureGesture} disabled={!cameraActive || isLoading} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#1A4F8D] px-5 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60 dark:border-[#FEC629] dark:text-[#FEC629]">
+          <button type="button" onClick={captureGesture} disabled={!cameraActive || isLoading} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#1A4F8D] px-5 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60">
             <Hand className="h-5 w-5" aria-hidden="true" /> {t("sign.interpretGesture")}
           </button>
-          <button type="button" onClick={() => interpretation && speak({ text: interpretation, language: speechCodeForAppLanguage(i18n.language) })} disabled={!interpretation} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60 dark:border-white/15 dark:text-white">
+          <button type="button" onClick={() => interpretation && speak({ text: interpretation, language: speechCodeForAppLanguage(i18n.language) })} disabled={!interpretation} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60">
             <Volume2 className="h-5 w-5" aria-hidden="true" /> {t("sign.speakResult")}
           </button>
         </div>

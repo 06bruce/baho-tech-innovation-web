@@ -69,8 +69,8 @@ export function RegisterPage() {
           aria-label="Registration form"
         >
           <div className="mb-6">
-            <h1 className="text-4xl font-semibold text-gray-950 dark:text-white">{t("auth.signupTitle")}</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">{t("auth.signupIntro")}</p>
+            <h1 className="text-4xl font-semibold text-gray-950">{t("auth.signupTitle")}</h1>
+            <p className="mt-2 text-gray-600">{t("auth.signupIntro")}</p>
           </div>
 
           <div className="space-y-5">
@@ -108,7 +108,7 @@ export function RegisterPage() {
             </div>
 
             <fieldset>
-              <legend className="mb-3 block text-sm font-semibold text-gray-800 dark:text-gray-100">{t("auth.disabilityCategory")}</legend>
+              <legend className="mb-3 block text-sm font-semibold text-gray-800">{t("auth.disabilityCategory")}</legend>
               <div className="grid gap-3 sm:grid-cols-2" role="radiogroup" aria-label="Disability category">
                 {disabilityCategories.map((category) => (
                   <label
@@ -135,7 +135,7 @@ export function RegisterPage() {
             </fieldset>
 
             <div>
-              <label htmlFor="preferredLanguage" className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-100">
+              <label htmlFor="preferredLanguage" className="mb-2 block text-sm font-semibold text-gray-800">
                 {t("auth.preferredLanguage")}
               </label>
               <select
@@ -143,7 +143,7 @@ export function RegisterPage() {
                 name="preferredLanguage"
                 value={form.preferredLanguage}
                 onChange={(event) => setForm((current) => ({ ...current, preferredLanguage: event.target.value }))}
-                className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4 text-gray-950 outline-none transition focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15 dark:border-white/15 dark:bg-[#102A43] dark:text-white"
+                className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4 text-gray-950 outline-none transition focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15"
               >
                 {["en", "rw", "fr", "sw"].map((language) => (
                   <option key={language} value={language}>

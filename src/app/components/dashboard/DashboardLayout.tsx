@@ -10,7 +10,6 @@ import {
 } from "../../utils/disability";
 import logoSrc from "../../../../images/Radiant Sun with Interlocking Arrow Logo.png";
 import { LanguageSwitcher } from "../LanguageSwitcher";
-import { ThemeToggle } from "../ThemeToggle";
 import { VoiceCommandPanel } from "../../features/voice/VoiceCommandPanel";
 import { AiAssistantPanel } from "../../features/ai/AiAssistantPanel";
 import { useTranslation } from "react-i18next";
@@ -41,8 +40,8 @@ export function DashboardLayout() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F5F7FA] text-gray-950 dark:bg-[#071A2D] dark:text-white">
-      <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-[#d8e4ec] bg-white px-5 py-6 dark:border-white/10 dark:bg-[#0B1F33] lg:flex lg:flex-col">
+    <div className="min-h-screen bg-[#F5F7FA] text-gray-950">
+      <aside className="fixed inset-y-0 left-0 z-30 hidden w-72 border-r border-[#d8e4ec] bg-white px-5 py-6 lg:flex lg:flex-col">
         <Link to="/" className="mb-8 flex items-center gap-3">
           <img src={logoSrc} alt="Baho Tech logo" className="h-14 w-14 object-contain" />
           <span className="text-lg font-semibold text-gray-950">Baho Tech</span>
@@ -75,8 +74,8 @@ export function DashboardLayout() {
           )}
         </nav>
 
-        <div className="rounded-2xl bg-[#eef5f9] p-4 text-sm text-gray-700 dark:bg-[#102A43] dark:text-gray-200">
-          <p className="font-semibold text-gray-950 dark:text-white">{user?.fullName}</p>
+        <div className="rounded-2xl bg-[#eef5f9] p-4 text-sm text-gray-700">
+          <p className="font-semibold text-gray-950">{user?.fullName}</p>
           <p>{user?.email}</p>
           {user?.role === "user" && user.disabilityCategory && (
             <p className="mt-2 font-semibold text-[#1A4F8D]">{disabilityLabels[user.disabilityCategory]} profile</p>
@@ -85,13 +84,13 @@ export function DashboardLayout() {
       </aside>
 
       <div className="lg:pl-72">
-        <header className="sticky top-0 z-20 border-b border-[#d8e4ec] bg-white/95 backdrop-blur dark:border-white/10 dark:bg-[#0B1F33]/95">
+        <header className="sticky top-0 z-20 border-b border-[#d8e4ec] bg-white/95 backdrop-blur">
           <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.22em] text-[#1A4F8D]">
                 {user?.role === "admin" ? t("dashboard.administration") : t("dashboard.assistiveWorkspace")}
               </p>
-              <h1 className="text-2xl font-semibold text-gray-950 dark:text-white">
+              <h1 className="text-2xl font-semibold text-gray-950">
                 {user?.role === "admin" ? t("dashboard.adminDashboard") : `${t("dashboard.welcome")}, ${user?.fullName}`}
               </h1>
             </div>
@@ -104,7 +103,6 @@ export function DashboardLayout() {
                 {t("nav.dashboard")}
               </Link>
               <LanguageSwitcher compact />
-              <ThemeToggle />
               <button
                 type="button"
                 onClick={handleLogout}

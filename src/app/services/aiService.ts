@@ -23,7 +23,6 @@ export type AiCommandAction =
   | { type: "key"; key: string }
   | { type: "scroll"; direction: "up" | "down" | "top" | "bottom" }
   | { type: "logout" }
-  | { type: "theme"; theme: "light" | "dark" }
   | { type: "language"; language: string }
   | { type: "search"; query: string }
   | { type: "readPage" }

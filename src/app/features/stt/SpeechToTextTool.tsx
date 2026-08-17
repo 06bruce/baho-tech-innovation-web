@@ -22,8 +22,8 @@ export function SpeechToTextTool() {
   } = useSpeechToText();
 
   return (
-    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="stt-title">
-      <h3 id="stt-title" className="text-2xl font-semibold text-gray-950 dark:text-white">{t("speech.speechToText")}</h3>
+    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm" aria-labelledby="stt-title">
+      <h3 id="stt-title" className="text-2xl font-semibold text-gray-950">{t("speech.speechToText")}</h3>
       <div className="mt-4 space-y-3">
         {supported && <FormAlert tone="info">{t("speech.ownTranscriptionReady")}</FormAlert>}
         {!supported && <FormAlert tone="error">{t("speech.unsupportedStt")}</FormAlert>}
@@ -32,8 +32,8 @@ export function SpeechToTextTool() {
       </div>
 
       <label className="mt-5 block">
-        <span className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-100">{t("speech.language")}</span>
-        <select value={language} onChange={(event) => setLanguage(event.target.value)} className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15 dark:border-white/15 dark:bg-[#102A43] dark:text-white">
+        <span className="mb-2 block text-sm font-semibold text-gray-800">{t("speech.language")}</span>
+        <select value={language} onChange={(event) => setLanguage(event.target.value)} className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15">
           {speechLanguages.map((item) => <option key={item.code} value={item.code}>{t(item.labelKey)}</option>)}
         </select>
       </label>
@@ -42,24 +42,24 @@ export function SpeechToTextTool() {
         <button type="button" onClick={() => void start()} disabled={!supported || isListening} className="inline-flex items-center gap-2 rounded-full bg-[#1A4F8D] px-6 py-3 font-semibold text-white hover:bg-[#1C5B78] focus:outline-none focus:ring-4 focus:ring-[#1A4F8D]/25 disabled:opacity-60">
           <Mic className="h-5 w-5" aria-hidden="true" /> {t("speech.startListening")}
         </button>
-        <button type="button" onClick={() => token && void stop({ token, language })} disabled={!supported || !token || !isListening} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-6 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] focus:outline-none focus:ring-4 focus:ring-[#1A4F8D]/25 disabled:opacity-60 dark:border-[#FEC629] dark:text-[#FEC629] dark:hover:bg-white/10">
+        <button type="button" onClick={() => token && void stop({ token, language })} disabled={!supported || !token || !isListening} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-6 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] focus:outline-none focus:ring-4 focus:ring-[#1A4F8D]/25 disabled:opacity-60">
           <Square className="h-5 w-5" aria-hidden="true" /> {t("speech.stopListening")}
         </button>
-        <button type="button" onClick={clear} className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-[#1A4F8D]/15 dark:border-white/15 dark:text-white dark:hover:bg-white/10">
+        <button type="button" onClick={clear} className="inline-flex items-center gap-2 rounded-full border border-gray-300 px-6 py-3 font-semibold text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-[#1A4F8D]/15">
           <Trash2 className="h-5 w-5" aria-hidden="true" /> {t("speech.clear")}
         </button>
       </div>
 
-      <div className="mt-6 min-h-64 rounded-2xl bg-[#F5F7FA] p-5 text-lg leading-8 text-gray-950 dark:bg-[#102A43] dark:text-white" aria-live="polite">
-        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#1A4F8D] dark:text-[#FEC629]">{t("speech.transcript")}</p>
+      <div className="mt-6 min-h-64 rounded-2xl bg-[#F5F7FA] p-5 text-lg leading-8 text-gray-950" aria-live="polite">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]">{t("speech.transcript")}</p>
         {transcript || t("speech.transcriptEmpty")}
       </div>
 
       {history.length > 0 && (
         <div className="mt-6">
-          <p className="mb-3 font-semibold text-gray-950 dark:text-white">{t("speech.recentTranscripts")}</p>
+          <p className="mb-3 font-semibold text-gray-950">{t("speech.recentTranscripts")}</p>
           <div className="space-y-2">
-            {history.map((item) => <p key={item} className="rounded-2xl bg-[#F5F7FA] p-3 text-gray-700 dark:bg-[#102A43] dark:text-gray-100">{item}</p>)}
+            {history.map((item) => <p key={item} className="rounded-2xl bg-[#F5F7FA] p-3 text-gray-700">{item}</p>)}
           </div>
         </div>
       )}

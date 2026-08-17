@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
-import { Target, Eye, Heart, Linkedin, Mail } from "lucide-react";
+import { Eye, Heart, Linkedin, Mail } from "lucide-react";
 import { teamMembers } from "../data/team";
+import { GoalsRoadmap } from "./GoalsRoadmap";
 import { Link } from "react-router";
 import ceoImage from "../../../images/ceo.png";
 
@@ -134,36 +135,7 @@ export function About() {
       {/* Goals Section */}
       <section id="goals" className="py-20 bg-gray-50 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row-reverse items-center gap-12">
-            <div className="md:w-1/3">
-              <div className="bg-[#1A4F8D] rounded-full w-40 h-40 flex items-center justify-center mx-auto">
-                <Target className="w-20 h-20 text-white" />
-              </div>
-            </div>
-            <div className="md:w-2/3">
-              <h2 className="text-3xl md:text-4xl text-gray-900 mb-6 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-                Our Goals
-              </h2>
-              <ul className="space-y-4">
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Innovate cutting-edge assistive technologies and inclusive digital solutions that enable people with disabilities to participate fully in society with dignity, autonomy, and equal access.</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Deliver professional accessibility consulting and WCAG-compliant development services that transform organizations into inclusive digital leaders.</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Establish industry standards and best practices in accessible design through training, workshops, and evidence-based methodologies that create lasting impact.</p>
-                </li>
-                <li className="flex items-start">
-                  <div className="w-2 h-2 bg-[#1A4F8D] rounded-full mt-2 mr-4 flex-shrink-0"></div>
-                  <p className="text-lg text-gray-700">Champion inclusive technology policy and advocate for accessibility regulations that ensure no one is left behind in the digital transformation.</p>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <GoalsRoadmap />
         </div>
 
         {/* Curved Bottom Border */}

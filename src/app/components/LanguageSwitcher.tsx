@@ -20,14 +20,14 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <label className="inline-flex items-center gap-2 rounded-full border border-[#d8e4ec] bg-white px-3 py-2 text-sm font-semibold text-gray-700 dark:border-white/15 dark:bg-[#102A43] dark:text-white">
-      <Languages className="h-4 w-4 text-[#1A4F8D] dark:text-[#FEC629]" aria-hidden="true" />
+    <label className="inline-flex items-center gap-2 rounded-full border border-[#d8e4ec] bg-white px-3 py-2 text-sm font-semibold text-gray-700">
+      <Languages className="h-4 w-4 text-[#1A4F8D]" aria-hidden="true" />
       <span className={compact ? "sr-only" : ""}>{t("speech.language")}</span>
       <select
         value={i18n.language}
         onChange={(event) => void handleChange(event.target.value)}
         aria-label={t("speech.language")}
-        className="bg-transparent outline-none focus:ring-2 focus:ring-[#1A4F8D]/30 dark:focus:ring-[#FEC629]/40"
+        className="bg-transparent outline-none focus:ring-2 focus:ring-[#1A4F8D]/30"
       >
         {languages.map((language) => (
           <option key={language} value={language}>

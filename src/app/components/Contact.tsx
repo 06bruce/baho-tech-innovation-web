@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MapPin, Phone, Mail, Send, Facebook, Twitter, Linkedin, Instagram } from "lucide-react";
+import { MapPin, Phone, Mail, Send, Linkedin, Instagram } from "lucide-react";
 import contactHero from "../../../images/4.jpeg?url";
 import { LeafletMap } from "./LeafletMap";
 
@@ -244,28 +244,22 @@ export function Contact() {
                 </h3>
                 <div className="flex space-x-4">
                   <a
-                    href="#"
-                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors"
+                    href="https://www.linkedin.com/company/baho-tech/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Baho Tech on LinkedIn"
+                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1A4F8D]/30"
                   >
-                    <Facebook className="w-6 h-6 text-white" />
+                    <Linkedin className="w-6 h-6 text-white" aria-hidden="true" />
                   </a>
                   <a
-                    href="#"
-                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors"
+                    href="https://www.instagram.com/bahoinclusivetech/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Baho Tech on Instagram"
+                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1A4F8D]/30"
                   >
-                    <Twitter className="w-6 h-6 text-white" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors"
-                  >
-                    <Linkedin className="w-6 h-6 text-white" />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-12 h-12 bg-[#1A4F8D] rounded-lg flex items-center justify-center hover:bg-[#1C5B78] transition-colors"
-                  >
-                    <Instagram className="w-6 h-6 text-white" />
+                    <Instagram className="w-6 h-6 text-white" aria-hidden="true" />
                   </a>
                 </div>
               </div>

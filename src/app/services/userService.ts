@@ -17,8 +17,7 @@ export const userService = {
     token: string,
     payload: {
       preferredLanguage?: string;
-      preferredTheme?: "light" | "dark";
-      accessibilityPreferences?: Record<string, unknown>;
+          accessibilityPreferences?: Record<string, unknown>;
     }
   ) {
     return apiRequest<{ ok: boolean; user: AuthUser }>("/users/preferences", {

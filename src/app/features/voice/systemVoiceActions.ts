@@ -9,7 +9,6 @@ type SystemVoiceUser = {
 type SystemVoiceActionContext = {
   navigate?: NavigateFunction;
   logout?: () => void | Promise<void>;
-  setTheme?: (theme: "light" | "dark") => void;
   changeLanguage?: (language: string) => void | Promise<void>;
   user?: SystemVoiceUser;
 };
@@ -151,16 +150,6 @@ export async function executeSystemVoiceAction(command: string, context: SystemV
   if (/\b(log out|logout|sign out)\b/.test(text)) {
     await context.logout?.();
     return true;
-  }
-
-  if (/\b(dark mode|switch to dark|turn on dark)\b/.test(text)) {
-    context.setTheme?.("dark");
-    return Boolean(context.setTheme);
-  }
-
-  if (/\b(light mode|switch to light|turn on light)\b/.test(text)) {
-    context.setTheme?.("light");
-    return Boolean(context.setTheme);
   }
 
   const languageTarget = textAfter(text, ["change language to", "switch language to", "set language to"]);

@@ -13,8 +13,8 @@ export function AuthSplitLayout({
   children: ReactNode;
 }) {
   return (
-    <section className="bg-[#F5F7FA] px-4 py-12 dark:bg-[#071A2D] sm:px-6 md:py-20 lg:px-8">
-      <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl border border-[#d8e4ec] bg-white dark:border-white/10 dark:bg-[#0B1F33] lg:min-h-[660px] lg:grid-cols-[1fr_0.95fr]">
+    <section className="bg-[#F5F7FA] px-4 py-12 sm:px-6 md:py-20 lg:px-8">
+      <div className="mx-auto grid max-w-6xl overflow-hidden rounded-3xl border border-[#d8e4ec] bg-white lg:min-h-[660px] lg:grid-cols-[1fr_0.95fr]">
         <div className="flex items-center px-5 py-8 sm:px-8 lg:px-12">
           <div className="w-full">{children}</div>
         </div>

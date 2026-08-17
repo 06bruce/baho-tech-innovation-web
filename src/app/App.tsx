@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { router } from './routes';
 import { AuthProvider } from './hooks/useAuth';
-import { ThemeProvider } from './hooks/useTheme';
 import { getApiBaseUrl, checkApiHealth } from './services/apiClient';
 import './i18n';
 
@@ -35,10 +34,8 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider>
-      <AuthProvider>
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </ThemeProvider>
+    <AuthProvider>
+      <RouterProvider router={router} />
+    </AuthProvider>
   );
 }

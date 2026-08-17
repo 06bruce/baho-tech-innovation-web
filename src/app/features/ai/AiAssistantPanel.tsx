@@ -4,7 +4,6 @@ import { Bot, Mic, Send, Volume2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { FormAlert } from "../../components/auth/FormAlert";
 import { useAuth } from "../../hooks/useAuth";
-import { useTheme } from "../../hooks/useTheme";
 import { aiService, type AiCommandAction, type ChatMessage } from "../../services/aiService";
 import { speechService } from "../../services/speechService";
 import { collectPageContext, fileToBase64 } from "../../utils/pageContext";
@@ -93,7 +92,6 @@ export function AiAssistantPanel() {
   const navigate = useNavigate();
   const { i18n, t } = useTranslation();
   const { speak, stop } = useTextToSpeech();
-  const { setTheme } = useTheme();
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [input, setInput] = useState("");
   const [error, setError] = useState("");
@@ -156,11 +154,6 @@ export function AiAssistantPanel() {
         return true;
       }
 
-      if (action.type === "theme") {
-        setTheme(action.theme);
-        return true;
-      }
-
       if (action.type === "language") {
         await changeLanguage(action.language);
         return true;
@@ -177,7 +170,7 @@ export function AiAssistantPanel() {
 
       return false;
     },
-    [changeLanguage, handleLogout, navigate, setTheme]
+    [changeLanguage, handleLogout, navigate]
   );
 
   const runAiCommand = useCallback(
@@ -188,7 +181,6 @@ export function AiAssistantPanel() {
       const handledLocally = await executeSystemVoiceAction(trimmedCommand, {
         navigate,
         logout: handleLogout,
-        setTheme,
         changeLanguage,
         user,
       });
@@ -225,7 +217,7 @@ export function AiAssistantPanel() {
         window.dispatchEvent(new CustomEvent("baho-voice-resume"));
       }
     },
-    [changeLanguage, executeAction, handleLogout, i18n.language, i18n.resolvedLanguage, location.pathname, navigate, setTheme, speakResponse, t, token, user]
+    [changeLanguage, executeAction, handleLogout, i18n.language, i18n.resolvedLanguage, location.pathname, navigate, speakResponse, t, token, user]
   );
 
   const listenForCommand = useCallback(() => {
@@ -362,17 +354,17 @@ export function AiAssistantPanel() {
   }, [listenForCommand, readPage, runAiCommand]);
 
   return (
-    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-5 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="ai-assistant-title">
+    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-5 shadow-sm" aria-labelledby="ai-assistant-title">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <h3 id="ai-assistant-title" className="flex items-center gap-2 text-xl font-semibold text-gray-950 dark:text-white">
-          <Bot className="h-5 w-5 text-[#1A4F8D] dark:text-[#FEC629]" aria-hidden="true" />
+        <h3 id="ai-assistant-title" className="flex items-center gap-2 text-xl font-semibold text-gray-950">
+          <Bot className="h-5 w-5 text-[#1A4F8D]" aria-hidden="true" />
           {t("ai.assistant")}
         </h3>
-        <button type="button" onClick={() => void readPage()} disabled={isLoading} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-4 py-2 text-sm font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60 dark:border-[#FEC629] dark:text-[#FEC629]">
+        <button type="button" onClick={() => void readPage()} disabled={isLoading} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-4 py-2 text-sm font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60">
           <Volume2 className="h-4 w-4" aria-hidden="true" />
           {t("ai.readPage")}
         </button>
-        <button type="button" onClick={listenForCommand} disabled={isLoading || isCommandListening} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-4 py-2 text-sm font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60 dark:border-[#FEC629] dark:text-[#FEC629]">
+        <button type="button" onClick={listenForCommand} disabled={isLoading || isCommandListening} className="inline-flex items-center gap-2 rounded-full border border-[#1A4F8D] px-4 py-2 text-sm font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60">
           <Mic className="h-4 w-4" aria-hidden="true" />
           {isCommandListening ? t("ai.listening") : t("ai.commandMode")}
         </button>
@@ -390,7 +382,7 @@ export function AiAssistantPanel() {
           value={input}
           onChange={(event) => setInput(event.target.value)}
           placeholder={t("ai.askPlaceholder")}
-          className="h-11 min-w-0 flex-1 rounded-full border border-gray-300 bg-white px-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15 dark:border-white/15 dark:bg-[#102A43] dark:text-white"
+          className="h-11 min-w-0 flex-1 rounded-full border border-gray-300 bg-white px-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15"
         />
         <button type="submit" disabled={isLoading || !input.trim()} className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#1A4F8D] text-white hover:bg-[#1C5B78] disabled:opacity-60" aria-label={t("ai.send")}>
           <Send className="h-5 w-5" aria-hidden="true" />

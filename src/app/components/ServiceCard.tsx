@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { TranslatedText } from "./TranslatedText";
+import { useId, useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { useTranslation } from "react-i18next";
 
 interface ServiceCardProps {
-  id: string;
+  /** All text arrives already localized from the calling page. */
   icon: React.ReactNode;
   title: string;
   description: string;
@@ -12,88 +12,60 @@ interface ServiceCardProps {
 }
 
 export function ServiceCard({ icon, title, description, details, status }: ServiceCardProps) {
+  const { t } = useTranslation();
+  const reduceMotion = useReducedMotion();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
+  const detailsId = useId();
 
   return (
-    <div
-      className="relative h-full"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <motion.div
+      className="relative h-full rounded-2xl border-2 border-gray-200 bg-white p-6 shadow-md transition-colors duration-300 hover:border-[#1A4F8D] hover:shadow-xl focus-within:border-[#1A4F8D]"
+      whileHover={reduceMotion ? undefined : { y: -5 }}
+      transition={{ duration: 0.2 }}
     >
-      <motion.div
-        className={`relative h-full bg-white border-2 border-gray-200 rounded-2xl p-6 transition-all duration-300 ${
-          isHovered ? 'border-[#1A4F8D] shadow-xl' : 'shadow-md'
-        }`}
-        whileHover={{ y: -5 }}
-      >
-        <AnimatePresence mode="wait">
-          {!isExpanded ? (
+      <div className="flex h-full flex-col">
+        <div className="mb-4 text-[#1A4F8D]" aria-hidden="true">
+          {icon}
+        </div>
+
+        <h3 className="mb-3 text-xl text-gray-900">{title}</h3>
+
+        {status && (
+          <p className="mb-4 inline-flex w-fit rounded-full bg-[#FEC629]/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]">
+            <span className="sr-only">{t("services.products.statusLabel")}: </span>
+            {status}
+          </p>
+        )}
+
+        <p className="mb-4 text-gray-600">{description}</p>
+
+        <AnimatePresence initial={false}>
+          {isExpanded && (
             <motion.div
-              key="front"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex flex-col h-full"
+              id={detailsId}
+              key="details"
+              initial={reduceMotion ? false : { opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={reduceMotion ? { opacity: 0 } : { opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: "easeOut" }}
+              className="overflow-hidden"
             >
-              <div
-                className={`mb-4 text-[#1A4F8D] transition-colors duration-300 ${
-                  isHovered ? 'text-[#1A4F8D]' : ''
-                }`}
-              >
-                {icon}
-              </div>
-              <h3 className="text-xl text-gray-900 mb-3 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-                {title}
-              </h3>
-              {status && (
-                <TranslatedText
-                  text={status}
-                  as="span"
-                  className="mb-4 inline-flex w-fit rounded-full bg-[#FEC629]/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]"
-                />
-              )}
-              <TranslatedText text={description} as="p" className="text-gray-600 mb-6 flex-1" />
-              <button
-                onClick={() => setIsExpanded(true)}
-                className={`self-start px-6 py-2 rounded-full transition-all duration-300 ${
-                  isHovered
-                    ? 'bg-[#1A4F8D] text-white'
-                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                }`}
-              >
-                <TranslatedText text="Read More" />
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="back"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="flex flex-col h-full"
-            >
-              <h3 className="text-xl text-gray-900 mb-3 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-                {title}
-              </h3>
-              {status && (
-                <TranslatedText
-                  text={status}
-                  as="span"
-                  className="mb-4 inline-flex w-fit rounded-full bg-[#FEC629]/25 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-[#1A4F8D]"
-                />
-              )}
-              <TranslatedText text={details} as="p" className="text-gray-700 mb-6 flex-1 leading-relaxed" />
-              <button
-                onClick={() => setIsExpanded(false)}
-                className="self-start px-6 py-2 bg-[#1A4F8D] text-white rounded-full hover:bg-[#1C5B78] transition-colors"
-              >
-                <TranslatedText text="Show Less" />
-              </button>
+              <p className="mb-4 leading-relaxed text-gray-700">{details}</p>
             </motion.div>
           )}
         </AnimatePresence>
-      </motion.div>
-    </div>
+
+        <button
+          type="button"
+          onClick={() => setIsExpanded((open) => !open)}
+          aria-expanded={isExpanded}
+          aria-controls={detailsId}
+          className="mt-auto self-start rounded-full bg-gray-100 px-6 py-2 text-gray-700 transition-colors duration-300 hover:bg-[#1A4F8D] hover:text-white focus:outline-none focus-visible:ring-4 focus-visible:ring-[#1A4F8D]/30"
+        >
+          {isExpanded ? t("services.products.showLess") : t("services.products.readMore")}
+          <span className="sr-only"> — {title}</span>
+        </button>
+      </div>
+    </motion.div>
   );
 }

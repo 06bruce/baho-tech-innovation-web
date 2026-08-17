@@ -1,5 +1,6 @@
 import { Suspense } from "react";
 import { Outlet } from "react-router";
+import { useTranslation } from "react-i18next";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 import { VoiceCommandIndicator } from "./VoiceCommandIndicator";
@@ -29,6 +30,8 @@ function PageLoader() {
 }
 
 export function Root() {
+  const { t } = useTranslation();
+
   return (
     <div
       className="min-h-screen flex flex-col"
@@ -40,7 +43,7 @@ export function Root() {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[120] focus:rounded-full focus:bg-[#FEC629] focus:px-5 focus:py-3 focus:font-semibold focus:text-gray-950"
       >
-        Skip to main content
+        {t("common.skipToContent")}
       </a>
       <Header />
       <main id="main-content" className="flex-1" tabIndex={-1}>

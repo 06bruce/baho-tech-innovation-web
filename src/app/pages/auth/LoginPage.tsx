@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { useTranslation } from "react-i18next";
 import { LogIn } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
-import { useTheme } from "../../hooks/useTheme";
 import i18n from "../../i18n";
 import { FormAlert } from "../../components/auth/FormAlert";
 import { AuthSplitLayout } from "../../components/auth/AuthSplitLayout";
@@ -21,7 +20,6 @@ export function LoginPage() {
   const { t } = useTranslation();
   const location = useLocation();
   const { login } = useAuth();
-  const { setTheme } = useTheme();
   const state = location.state as LocationState | null;
   const [form, setForm] = useState({ email: "", password: "" });
   const [error, setError] = useState("");
@@ -37,9 +35,6 @@ export function LoginPage() {
       if (user.preferredLanguage) {
         window.localStorage.setItem("baho_language", user.preferredLanguage);
         await i18n.changeLanguage(user.preferredLanguage);
-      }
-      if (user.preferredTheme) {
-        setTheme(user.preferredTheme);
       }
       const requestedPath = state?.from?.pathname;
       const nextPath =
@@ -68,8 +63,8 @@ export function LoginPage() {
           aria-label="Login form"
         >
           <div className="mb-6">
-            <h1 className="text-4xl font-semibold text-gray-950 dark:text-white">{t("auth.loginTitle")}</h1>
-            <p className="mt-2 text-gray-600 dark:text-gray-300">{t("auth.loginIntro")}</p>
+            <h1 className="text-4xl font-semibold text-gray-950">{t("auth.loginTitle")}</h1>
+            <p className="mt-2 text-gray-600">{t("auth.loginIntro")}</p>
           </div>
 
           <div className="space-y-5">

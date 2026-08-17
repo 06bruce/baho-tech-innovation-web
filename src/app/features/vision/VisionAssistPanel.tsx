@@ -62,8 +62,8 @@ export function VisionAssistPanel() {
   }
 
   return (
-    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="vision-title">
-      <h3 id="vision-title" className="text-2xl font-semibold text-gray-950 dark:text-white">{t("vision.title")}</h3>
+    <section className="rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm" aria-labelledby="vision-title">
+      <h3 id="vision-title" className="text-2xl font-semibold text-gray-950">{t("vision.title")}</h3>
       <div className="mt-4 space-y-3">
         {error && <FormAlert tone="error">{error}</FormAlert>}
         {description && <FormAlert tone="info">{description}</FormAlert>}
@@ -74,10 +74,10 @@ export function VisionAssistPanel() {
           <button type="button" onClick={() => void startCamera()} className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#1A4F8D] px-5 py-3 font-semibold text-white hover:bg-[#1C5B78]">
             <Camera className="h-5 w-5" aria-hidden="true" /> {t("vision.startCamera")}
           </button>
-          <button type="button" onClick={captureFrame} disabled={!cameraActive || isLoading} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#1A4F8D] px-5 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60 dark:border-[#FEC629] dark:text-[#FEC629]">
+          <button type="button" onClick={captureFrame} disabled={!cameraActive || isLoading} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-[#1A4F8D] px-5 py-3 font-semibold text-[#1A4F8D] hover:bg-[#eef5f9] disabled:opacity-60">
             <ImagePlus className="h-5 w-5" aria-hidden="true" /> {t("vision.analyzeScene")}
           </button>
-          <button type="button" onClick={() => description && speak({ text: description, language: speechCodeForAppLanguage(i18n.language) })} disabled={!description} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60 dark:border-white/15 dark:text-white">
+          <button type="button" onClick={() => description && speak({ text: description, language: speechCodeForAppLanguage(i18n.language) })} disabled={!description} className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 px-5 py-3 font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-60">
             <Volume2 className="h-5 w-5" aria-hidden="true" /> {t("vision.speakResult")}
           </button>
         </div>

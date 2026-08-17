@@ -10,7 +10,6 @@ export type AuthUser = {
   role: UserRole;
   disabilityCategory: DisabilityCategory | null;
   preferredLanguage?: string;
-  preferredTheme?: "light" | "dark";
   accessibilityPreferences?: Record<string, unknown>;
   phone?: string | null;
   location?: string | null;
@@ -24,7 +23,6 @@ export type RegisterPayload = {
   confirmPassword: string;
   disabilityCategory: DisabilityCategory;
   preferredLanguage?: string;
-  preferredTheme?: "light" | "dark";
   phone?: string;
   location?: string;
 };

@@ -30,21 +30,21 @@ export function WritingAssistantPanel() {
   }
 
   return (
-    <section className="space-y-5 rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm dark:border-white/10 dark:bg-[#0B1F33]" aria-labelledby="writing-title">
-      <h3 id="writing-title" className="flex items-center gap-2 text-2xl font-semibold text-gray-950 dark:text-white">
-        <PenLine className="h-6 w-6 text-[#1A4F8D] dark:text-[#FEC629]" aria-hidden="true" />
+    <section className="space-y-5 rounded-3xl border border-[#d8e4ec] bg-white p-6 shadow-sm" aria-labelledby="writing-title">
+      <h3 id="writing-title" className="flex items-center gap-2 text-2xl font-semibold text-gray-950">
+        <PenLine className="h-6 w-6 text-[#1A4F8D]" aria-hidden="true" />
         {t("writing.title")}
       </h3>
       {error && <FormAlert tone="error">{error}</FormAlert>}
       <div className="grid gap-4 lg:grid-cols-[1fr_280px]">
         <label>
-          <span className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-100">{t("writing.draft")}</span>
-          <textarea value={input} onChange={(event) => setInput(event.target.value)} rows={6} className="w-full rounded-2xl border border-gray-300 bg-white p-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15 dark:border-white/15 dark:bg-[#102A43] dark:text-white" />
+          <span className="mb-2 block text-sm font-semibold text-gray-800">{t("writing.draft")}</span>
+          <textarea value={input} onChange={(event) => setInput(event.target.value)} rows={6} className="w-full rounded-2xl border border-gray-300 bg-white p-4 text-gray-950 outline-none focus:border-[#1A4F8D] focus:ring-4 focus:ring-[#1A4F8D]/15" />
         </label>
         <div>
           <label className="block">
-            <span className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-100">{t("writing.mode")}</span>
-            <select value={mode} onChange={(event) => setMode(event.target.value)} className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4 dark:border-white/15 dark:bg-[#102A43] dark:text-white">
+            <span className="mb-2 block text-sm font-semibold text-gray-800">{t("writing.mode")}</span>
+            <select value={mode} onChange={(event) => setMode(event.target.value)} className="h-12 w-full rounded-2xl border border-gray-300 bg-white px-4">
               <option value="simple">{t("writing.simplify")}</option>
               <option value="expand">{t("writing.expand")}</option>
               <option value="formal">{t("writing.formal")}</option>

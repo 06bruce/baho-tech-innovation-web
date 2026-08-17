@@ -1,0 +1,1 @@
+import{j as o,N as a}from"./vendor-DKsr-VrH.js";import{u as r,P as s,g as e}from"./index-Ci_u71UV.js";function i(){const{user:i,isLoading:n}=r();return n?o.jsx(s,{label:"Opening your workspace"}):"admin"===(null==i?void 0:i.role)?o.jsx(a,{to:"/admin/dashboard",replace:!0}):o.jsx(a,{to:e(null==i?void 0:i.disabilityCategory),replace:!0})}export{i as DashboardRedirect};
