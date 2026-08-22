@@ -23,10 +23,7 @@ import {
 import { useAuth } from "../hooks/useAuth";
 import { getDashboardPathForDisability } from "../utils/disability";
 import { LanguageSwitcher } from "./LanguageSwitcher";
-<<<<<<< HEAD
-=======
 import { TranslatedText } from "./TranslatedText";
->>>>>>> 85db9c9c (feat: update team roster and improve UI)
 import { useTranslation } from "react-i18next";
 import logoSrc from "../../../images/Radiant Sun with Interlocking Arrow Logo.png";
 
