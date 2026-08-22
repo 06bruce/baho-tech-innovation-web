@@ -8,12 +8,8 @@ export type TeamMember = {
 };
 
 import ceoImage from "../../../images/ceo.png";
-import corailImage from "../../../images/corail.png";
 import zainabImage from "../../../images/zainab.png";
-import marthaImage from "../../../images/martha.png";
 import gislaineImage from "../../../images/gislaine.png";
-import norahImage from "../../../images/norah.png";
-import johnsonImage from "../../../images/a.jpeg";
 import valentinImage from "../../../images/b.jpeg";
 import rogersImage from "../../../images/c.jpeg";
 import bruceImage from "../../../images/d.jpeg";
@@ -30,30 +26,6 @@ export const teamMembers: TeamMember[] = [
       "Nancy also champions partnerships with schools, local organizations, and global accessibility groups. Through these collaborations, Baho Tech learns from real users and builds tools that fit the realities of their environments. Her long‑term vision is a digital ecosystem where accessibility is the standard—not the exception."
     ],
     image: ceoImage
-  },
-  {
-    slug: "iyizire-corail",
-    name: "IYIZIRE Corail",
-    role: "Tech Team",
-    bio: "Building reliable, secure systems that power accessible digital experiences.",
-    story: [
-      "Corail designs resilient APIs and data pipelines that keep assistive tools fast and dependable. She specializes in scalable architecture, focusing on fault tolerance, data integrity, and latency reduction for real‑time experiences.",
-      "Her work includes building secure authentication flows, optimizing database queries, and creating monitoring systems that proactively detect outages. She believes performance is a form of accessibility—if a service is slow or unreliable, it fails the people who depend on it most.",
-      "Corail also advocates for inclusive engineering practices by documenting systems clearly and mentoring junior developers. She sees backend reliability as the foundation that makes every front‑end interaction feel effortless."
-    ],
-    image: corailImage
-  },
-  {
-    slug: "murungi-martha",
-    name: "Murungi Martha",
-    role: "Tech Team",
-    bio: "Crafting intuitive, accessible interfaces with a focus on performance and usability.",
-    story: [
-      "Martha builds thoughtful interfaces that meet accessibility standards without sacrificing speed or clarity. She is meticulous about semantic structure, keyboard navigation, and screen‑reader compatibility, treating accessibility requirements as a design opportunity rather than a checklist.",
-      "Her day‑to‑day work includes component design, performance tuning, and responsive layouts. She translates complex workflows into clean, intuitive UI flows that help users complete tasks confidently.",
-      "Martha works side‑by‑side with designers and researchers to test prototypes with real users, ensuring that each interaction feels natural across devices and assistive technologies."
-    ],
-    image: marthaImage
   },
   {
     slug: "zainab-elmukshfi",
@@ -79,30 +51,6 @@ export const teamMembers: TeamMember[] = [
     ],
     image: gislaineImage
 
-  },
-  {
-    slug: "johnson-tumwebaze",
-    name: "Johnson Tumwebaze",
-    role: "Graphic Designer",
-    bio: "Creating visual stories and brand assets that communicate with clarity and impact.",
-    story: [
-      "Johnson develops visual systems that keep Baho Tech recognizable, modern, and accessible. He creates brand assets, iconography, and illustration styles that support clarity and reduce cognitive load.",
-      "He collaborates with product teams to ensure visuals enhance, rather than distract from, core user tasks. His work spans marketing campaigns, product graphics, and internal documentation.",
-      "Johnson’s approach emphasizes legibility, contrast, and simplicity. He believes strong visual design should help users focus on what matters most."
-    ],
-    image: johnsonImage
-  },
-  {
-    slug: "mugisha-ineza-nora",
-    name: "Mugisha Ineza Nora",
-    role: "Embedded Systems Engineer",
-    bio: "Designing dependable embedded solutions that connect hardware innovation with accessible technology.",
-    story: [
-      "Nora develops embedded systems that make assistive hardware more responsive, durable, and practical in everyday environments. She works across prototyping, sensor integration, and device optimization to ensure each system performs reliably in real-world use.",
-      "Her work focuses on bridging software intelligence with physical products, helping Baho Tech build solutions that are efficient, safe, and easy to maintain. She pays close attention to power usage, performance stability, and how devices behave under continuous operation.",
-      "Nora brings an engineering mindset rooted in precision and long-term reliability. She sees embedded technology as a powerful way to expand access, especially when hardware is designed with users' lived needs in mind from the start."
-    ],
-    image: norahImage
   },
   {
     slug: "mugisha-valentin",
