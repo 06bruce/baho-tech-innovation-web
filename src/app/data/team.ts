@@ -7,12 +7,12 @@ export type TeamMember = {
   image: string;
 };
 
-import ceoImage from "../../../images/ceo.png";
+import ceoImage from "../../../images/Zera.jpeg";
 import zainabImage from "../../../images/zainab.png";
 import gislaineImage from "../../../images/gislaine.png";
-import valentinImage from "../../../images/b.jpeg";
-import rogersImage from "../../../images/c.jpeg";
-import bruceImage from "../../../images/d.jpeg";
+import valentinImage from "../../../images/Valentin.jpeg";
+import rogersImage from "../../../images/Rogers.jpeg";
+import bruceImage from "../../../images/cto.jpg";
 
 export const teamMembers: TeamMember[] = [
   {

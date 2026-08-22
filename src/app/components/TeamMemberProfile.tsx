@@ -39,7 +39,7 @@ export function TeamMemberProfile() {
             <img
               src={member.image}
               alt={member.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
             />
           </div>
             <div className="mt-6 rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">

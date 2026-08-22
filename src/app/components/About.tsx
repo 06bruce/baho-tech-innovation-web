@@ -4,7 +4,7 @@ import { Eye, Heart, Linkedin, Mail } from "lucide-react";
 import { teamMembers } from "../data/team";
 import { GoalsRoadmap } from "./GoalsRoadmap";
 import { Link } from "react-router";
-import ceoImage from "../../../images/ceo.png";
+import ceoImage from "../../../images/Zera.jpeg";
 
 export function About() {
   const location = useLocation();
@@ -297,11 +297,11 @@ export function About() {
                 to={`/team/${member.slug}`}
                 className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 block min-w-[280px] max-w-[320px] snap-start"
               >
-                <div className="h-40 bg-gray-100 flex items-center justify-center border-b border-gray-200">
+                <div className="h-64 bg-gray-100 flex items-center justify-center border-b border-gray-200">
                   <img
                     src={member.image}
                     alt={member.name}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover object-top"
                   />
                 </div>
                 <div className="p-6">
