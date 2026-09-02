@@ -1,7 +1,17 @@
 import { Link } from "react-router";
 import { NewsCarousel } from "./NewsCarousel";
 import { TranslatedText } from "./TranslatedText";
+<<<<<<< HEAD
 import { Users, Award, Globe, TrendingUp } from "lucide-react";
+=======
+import {
+  UsersRound,
+  Users,
+  Award,
+  Globe,
+  TrendingUp
+} from "lucide-react";
+>>>>>>> 53616617 (Removed the Section hat was not needed and removed 2 incative members)
 import heroBg from "../../../images/1-transparent.png?url";
 import newsBg from "../../../images/4.jpeg?url";
 
@@ -84,7 +94,11 @@ export function Home() {
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* Latest News/Projects Section */}
+=======
+      {/* Latest News/Projects Section - Same background as Featured Services */}
+>>>>>>> 53616617 (Removed the Section hat was not needed and removed 2 incative members)
       <section
         className="py-20 bg-gray-50 relative overflow-hidden"
         style={{

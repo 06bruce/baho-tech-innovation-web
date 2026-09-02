@@ -8,8 +8,6 @@ export type TeamMember = {
 };
 
 import ceoImage from "../../../images/Zera.jpeg";
-import zainabImage from "../../../images/zainab.png";
-import gislaineImage from "../../../images/gislaine.png";
 import valentinImage from "../../../images/Valentin.jpeg";
 import rogersImage from "../../../images/Rogers.jpeg";
 import bruceImage from "../../../images/cto.jpg";
@@ -26,31 +24,6 @@ export const teamMembers: TeamMember[] = [
       "Nancy also champions partnerships with schools, local organizations, and global accessibility groups. Through these collaborations, Baho Tech learns from real users and builds tools that fit the realities of their environments. Her long‑term vision is a digital ecosystem where accessibility is the standard—not the exception."
     ],
     image: ceoImage
-  },
-  {
-    slug: "zainab-elmukshfi",
-    name: "Zainab Elmukshfi",
-    role: "UI/UX Designer",
-    bio: "Designing human-centered experiences that are inclusive, clear, and elegant.",
-    story: [
-      "Zainab leads research and design systems that prioritize accessibility from the first sketch. She runs user interviews and usability studies with diverse participants, then translates those insights into inclusive patterns and design guidelines.",
-      "She oversees Baho Tech’s design system, ensuring components meet color‑contrast standards, touch targets, and readability requirements. Her goal is a cohesive visual language that remains flexible across products.",
-      "Zainab’s design philosophy blends clarity with warmth—interfaces should be visually elegant, but also predictable and welcoming. She believes good design is defined by how confidently people can use it."
-    ],
-    image: zainabImage
-  },
-  {
-    slug: "mahoro-gislaine",
-    name: "Mahoro Gislaine",
-    role: "Tech Team",
-    bio: "Delivering responsive, accessible web experiences with strong attention to detail.",
-    story: [
-      "Gislaine ensures our products feel consistent across devices and are navigable for all users. She focuses on responsive behavior, layout robustness, and interaction states that make accessibility visible and reliable.",
-      "Her role covers building reusable UI components, refactoring legacy interfaces, and collaborating with QA to validate accessibility compliance. She takes pride in the details that users might never notice—but would immediately feel if they were missing.",
-      "Gislaine’s mindset is simple: if an interface works smoothly for the most vulnerable user, it will work better for everyone."
-    ],
-    image: gislaineImage
-
   },
   {
     slug: "mugisha-valentin",
