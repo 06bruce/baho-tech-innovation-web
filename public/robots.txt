@@ -1,0 +1,11 @@
+# https://www.bahoinc.com/robots.txt
+User-agent: *
+Allow: /
+
+# Private areas — no public content, keep out of the index.
+Disallow: /login
+Disallow: /register
+Disallow: /dashboard
+Disallow: /admin
+
+Sitemap: https://www.bahoinc.com/sitemap.xml

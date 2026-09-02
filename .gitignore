@@ -1,5 +1,16 @@
+# Dependencies
 node_modules/
+
+# Build output — must never be committed; it goes stale and causes
+# merge conflicts and confusion about which assets production serves.
+dist/
+
+# Environment files (values differ per environment; never commit)
 .env
-.env.example
-.env.production
-.env.local
+.env.*
+!.env.example
+
+# Editor / OS noise
+.DS_Store
+*.log
+.vercel

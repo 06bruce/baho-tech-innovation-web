@@ -14,11 +14,6 @@ import {
   Code,
   BookOpen,
   Zap,
-  SlidersHorizontal,
-  MessageCircle,
-  Star,
-  LineChart,
-  UsersRound,
   Ear,
   Footprints,
   GraduationCap,
@@ -118,13 +113,6 @@ export function Services() {
     { key: "prototyping", id: "rapid-prototyping", icon: Zap },
   ] as const;
 
-  const serviceNodes = [
-    { key: "configuration", color: "#2EC4B6", icon: SlidersHorizontal },
-    { key: "support", color: "#FF8C42", icon: MessageCircle },
-    { key: "quality", color: "#F72585", icon: Star },
-    { key: "data", color: "#3A86FF", icon: LineChart },
-    { key: "community", color: "#FFBE0B", icon: UsersRound },
-  ] as const;
 
   const products = [
     { key: "sbs", id: "sbs", icon: <Navigation className="h-12 w-12" /> },
@@ -414,103 +402,6 @@ export function Services() {
         </div>
       </section>
 
-      {/* ---------- How we deliver (existing radial layout, preserved) ---------- */}
-      <section className="relative overflow-hidden bg-[#F5F7FA] py-20" aria-labelledby="nodes-title">
-        <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-          <div className="absolute left-10 top-10 hidden lg:block">
-            <svg width="520" height="560" viewBox="0 0 520 560" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M140 80 C260 20 410 50 470 160 C510 240 470 340 380 410 C310 470 200 510 120 520" stroke="#0D1B2A" strokeWidth="2" strokeDasharray="6 10" opacity="0.22" />
-              <circle cx="430" cy="140" r="6" fill="#2EC4B6" opacity="0.65" />
-              <circle cx="445" cy="210" r="6" fill="#FF8C42" opacity="0.65" />
-              <circle cx="445" cy="280" r="6" fill="#F72585" opacity="0.65" />
-              <circle cx="430" cy="350" r="6" fill="#3A86FF" opacity="0.65" />
-              <circle cx="400" cy="420" r="6" fill="#FFBE0B" opacity="0.65" />
-            </svg>
-          </div>
-
-          <div className="absolute right-8 top-10 hidden opacity-40 lg:block">
-            <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 40 C70 10 140 20 200 70" stroke="#0D1B2A" strokeWidth="2" opacity="0.15" />
-              <path d="M20 120 C80 150 140 140 210 110" stroke="#0D1B2A" strokeWidth="2" opacity="0.12" />
-            </svg>
-          </div>
-
-          <div className="absolute bottom-10 left-1/3 hidden opacity-40 lg:block">
-            <div className="grid grid-cols-6 gap-3">
-              {[...Array(18)].map((_, i) => (
-                <div key={i} className="h-1.5 w-1.5 rounded-full bg-[#0D1B2A]/20"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col items-start gap-12 lg:flex-row">
-            <div className="relative flex w-full items-center justify-center lg:w-[340px]">
-              <div className="absolute h-[300px] w-[300px] rounded-full border border-white/30" aria-hidden="true"></div>
-              <div className="absolute h-[340px] w-[340px] rounded-full border border-white/20" aria-hidden="true"></div>
-              <div className="absolute h-[360px] w-[360px] rounded-full border border-white/10" aria-hidden="true"></div>
-              <div className="relative flex h-[250px] w-[250px] items-center justify-center rounded-full bg-[#0D1B2A] px-6 text-center text-white shadow-[0_20px_50px_rgba(13,27,42,0.35)]">
-                <div>
-                  <h2 id="nodes-title" className="text-2xl font-bold tracking-wide">
-                    {t("services.nodes.heading")}
-                  </h2>
-                  <div className="mx-auto my-3 h-[2px] w-20 bg-[#FF8C42]" aria-hidden="true"></div>
-                  <p className="text-sm tracking-[0.35em] text-white/80">{t("services.nodes.subheading")}</p>
-                </div>
-              </div>
-            </div>
-
-            <ul className="flex-1 space-y-6">
-              {serviceNodes.map((node, index) => (
-                <motion.li
-                  key={node.key}
-                  className="group flex flex-col gap-4 md:flex-row md:items-center md:gap-6"
-                  initial={reduceMotion ? false : { opacity: 0, x: 24 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.4 }}
-                  transition={{ duration: 0.45, delay: reduceMotion ? 0 : index * 0.08, ease: "easeOut" }}
-                >
-                  <div className="relative flex items-center gap-4" aria-hidden="true">
-                    <div className="h-3 w-3 rounded-full" style={{ backgroundColor: node.color }}></div>
-                    <div
-                      className="h-[2px] w-14 border-t-2 border-dotted opacity-70 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ borderColor: node.color }}
-                    ></div>
-                    <div
-                      className="relative flex h-12 w-12 items-center justify-center rounded-full border bg-white shadow-sm transition-transform duration-300 group-hover:scale-105"
-                      style={{ borderColor: node.color }}
-                    >
-                      <span className="absolute h-6 w-6 rounded-full" style={{ backgroundColor: node.color }}></span>
-                      <node.icon className="relative h-5 w-5 text-white" />
-                    </div>
-                  </div>
-
-                  <div
-                    className="hidden h-[2px] w-12 border-t-2 border-dotted opacity-70 transition-opacity duration-300 group-hover:opacity-100 md:block"
-                    style={{ borderColor: node.color }}
-                    aria-hidden="true"
-                  ></div>
-
-                  <div className="relative flex-1 rounded-2xl bg-white px-6 py-5 shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                    <h3 className="mb-2 text-base font-semibold text-gray-900">
-                      {t(`services.nodes.${node.key}.title`)}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-gray-500">
-                      {t(`services.nodes.${node.key}.body`)}
-                    </p>
-                    <div
-                      className="absolute right-0 top-0 h-full w-8 translate-x-1/2 rounded-l-full"
-                      style={{ background: node.color }}
-                      aria-hidden="true"
-                    ></div>
-                  </div>
-                </motion.li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </section>
 
       {/* ---------- CTA ---------- */}
       <section className="relative bg-[#1A4F8D] py-20 text-white" aria-labelledby="services-cta-title">

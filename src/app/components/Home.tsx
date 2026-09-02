@@ -1,54 +1,11 @@
 import { Link } from "react-router";
 import { NewsCarousel } from "./NewsCarousel";
 import { TranslatedText } from "./TranslatedText";
-import {
-  SlidersHorizontal,
-  MessageCircle,
-  Star,
-  LineChart,
-  UsersRound,
-  Users,
-  Award,
-  Globe,
-  TrendingUp
-} from "lucide-react";
+import { Users, Award, Globe, TrendingUp } from "lucide-react";
 import heroBg from "../../../images/1-transparent.png?url";
 import newsBg from "../../../images/4.jpeg?url";
 
 export function Home() {
-  const serviceNodes = [
-    {
-      color: "#2EC4B6",
-      icon: SlidersHorizontal,
-      title: "System Configuration",
-      body: "We tailor accessibility settings, audits, and compliance plans that meet global standards."
-    },
-    {
-      color: "#FF8C42",
-      icon: MessageCircle,
-      title: "Support & Communication",
-      body: "Clear guidance, user testing, and ongoing support so teams launch inclusive products."
-    },
-    {
-      color: "#F72585",
-      icon: Star,
-      title: "Quality & Excellence",
-      body: "Rigorous QA processes with usability validation to ensure exceptional experiences."
-    },
-    {
-      color: "#3A86FF",
-      icon: LineChart,
-      title: "Data & Growth",
-      body: "Analytics, performance insights, and roadmap planning that drive measurable impact."
-    },
-    {
-      color: "#FFBE0B",
-      icon: UsersRound,
-      title: "Team & Community",
-      body: "Training, workshops, and co-creation to build accessibility-first culture."
-    }
-  ];
-
   const impactStats = [
     {
       icon: Users,
@@ -127,106 +84,7 @@ export function Home() {
         </div>
       </section>
 
-      {/* Featured Services Section */}
-      <section className="py-20 bg-[#F5F7FA] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-10 top-10 hidden lg:block">
-            <svg width="520" height="560" viewBox="0 0 520 560" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M140 80 C260 20 410 50 470 160 C510 240 470 340 380 410 C310 470 200 510 120 520" stroke="#0D1B2A" strokeWidth="2" strokeDasharray="6 10" opacity="0.22" />
-              <circle cx="430" cy="140" r="6" fill="#2EC4B6" opacity="0.65" />
-              <circle cx="445" cy="210" r="6" fill="#FF8C42" opacity="0.65" />
-              <circle cx="445" cy="280" r="6" fill="#F72585" opacity="0.65" />
-              <circle cx="430" cy="350" r="6" fill="#3A86FF" opacity="0.65" />
-              <circle cx="400" cy="420" r="6" fill="#FFBE0B" opacity="0.65" />
-            </svg>
-          </div>
-
-          <div className="absolute right-8 top-12 hidden lg:block opacity-40">
-            <svg width="220" height="180" viewBox="0 0 220 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M10 40 C70 10 140 20 200 70" stroke="#0D1B2A" strokeWidth="2" opacity="0.15" />
-              <path d="M20 120 C80 150 140 140 210 110" stroke="#0D1B2A" strokeWidth="2" opacity="0.12" />
-            </svg>
-          </div>
-
-          <div className="absolute bottom-10 left-1/3 hidden lg:block opacity-40">
-            <div className="grid grid-cols-6 gap-3">
-              {[...Array(18)].map((_, i) => (
-                <div key={i} className="h-1.5 w-1.5 rounded-full bg-[#0D1B2A]/20"></div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="mb-14">
-            <h2 className="text-3xl md:text-4xl text-gray-900 mb-4 relative inline-block after:content-[''] after:absolute after:left-0 after:-bottom-2 after:h-1 after:w-1/2 after:bg-[#1A4F8D] after:rounded-full after:transition-all after:duration-500 hover:after:w-full">
-              <TranslatedText text="What We Do & What We Offer" />
-            </h2>
-          </div>
-
-          <div className="flex flex-col lg:flex-row gap-12 items-start">
-            <div className="relative w-full lg:w-[340px] flex items-center justify-center">
-              <div className="absolute h-[300px] w-[300px] rounded-full border border-white/30"></div>
-              <div className="absolute h-[340px] w-[340px] rounded-full border border-white/20"></div>
-              <div className="absolute h-[360px] w-[360px] rounded-full border border-white/10"></div>
-              <div className="relative h-[250px] w-[250px] rounded-full bg-[#0D1B2A] text-white shadow-[0_20px_50px_rgba(13,27,42,0.35)] flex items-center justify-center text-center px-6">
-                <div>
-                  <TranslatedText text="OUR SERVICES" as="div" className="text-2xl font-bold tracking-wide" />
-                  <div className="mx-auto my-3 h-[2px] w-20 bg-[#FF8C42]"></div>
-                  <TranslatedText text="WHAT WE DO" as="div" className="text-sm tracking-[0.35em] text-white/80" />
-                </div>
-              </div>
-            </div>
-
-            <div className="flex-1 space-y-6">
-              {serviceNodes.map((node, index) => (
-                <div key={index} className="group flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-                  <div className="relative flex items-center gap-4">
-                    <div
-                      className="h-3 w-3 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.15)]"
-                      style={{ backgroundColor: node.color }}
-                    ></div>
-                    <div
-                      className="h-[3px] w-16 border-t-2 border-dotted opacity-100 transition-opacity duration-300 group-hover:opacity-100"
-                      style={{ borderColor: node.color }}
-                    ></div>
-                    <div
-                      className="relative h-12 w-12 rounded-full bg-white shadow-sm border flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-                      style={{ borderColor: node.color }}
-                    >
-                      <span className="absolute h-6 w-6 rounded-full" style={{ backgroundColor: node.color }}></span>
-                      <node.icon className="relative w-5 h-5 text-white" />
-                    </div>
-                  </div>
-
-                  <div
-                    className="hidden md:block h-[3px] w-14 border-t-2 border-dotted opacity-100 transition-opacity duration-300 group-hover:opacity-100"
-                    style={{ borderColor: node.color }}
-                  ></div>
-
-                  <div className="relative flex-1 bg-white rounded-2xl px-6 py-5 shadow-md transition-transform duration-300 group-hover:-translate-y-1 group-hover:shadow-lg">
-                    <TranslatedText text={node.title} as="div" className="text-base font-semibold text-gray-900 mb-2" />
-                    <TranslatedText text={node.body} as="div" className="text-sm text-gray-500 leading-relaxed" />
-                    <div
-                      className="absolute right-0 top-0 h-full w-8 rounded-l-full translate-x-1/2"
-                      style={{ background: node.color }}
-                    ></div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-
-        {/* Curved Bottom Border */}
-        <div className="relative mt-20">
-          <svg className="w-full h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-            <path d="M0,70 C120,30 220,110 340,70 C460,30 560,110 680,70 C800,30 920,110 1040,70 C1120,50 1160,60 1200,70 L1200,120 L0,120 Z" fill="#F5F7FA"></path>
-          </svg>
-        </div>
-      </section>
-
-      {/* Latest News/Projects Section - Same background as Featured Services */}
+      {/* Latest News/Projects Section */}
       <section
         className="py-20 bg-gray-50 relative overflow-hidden"
         style={{

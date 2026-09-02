@@ -138,6 +138,11 @@ export const resources = {
         permissionError: "Camera permission was denied or unavailable.",
         failed: "Sign-language interpretation failed.",
       },
+      notFound: {
+        title: "Page not found",
+        body: "The page you are looking for does not exist or has moved.",
+        cta: "Back to home",
+      },
       about: {
         goals: {
           eyebrow: "Our roadmap",
@@ -284,31 +289,6 @@ export const resources = {
             description: "Fast, iterative development of accessibility features.",
             details:
               "Our prototyping process allows quick testing and refinement of accessibility features. We work closely with users so solutions meet real-world needs through continuous feedback and iteration.",
-          },
-        },
-        nodes: {
-          eyebrow: "Our services",
-          heading: "OUR SERVICES",
-          subheading: "WHAT WE DO",
-          configuration: {
-            title: "System Configuration",
-            body: "We configure assistive workflows, dashboards, and accessibility settings around each user profile.",
-          },
-          support: {
-            title: "Support & Communication",
-            body: "We help teams and users communicate clearly through training, support, and inclusive service design.",
-          },
-          quality: {
-            title: "Quality & Excellence",
-            body: "We test usability, accessibility, and service quality before products reach the people who need them.",
-          },
-          data: {
-            title: "Data & Growth",
-            body: "We use product feedback and accessibility insights to improve impact over time.",
-          },
-          community: {
-            title: "Team & Community",
-            body: "We build with users, caregivers, schools, and partners so assistive technology fits real life.",
           },
         },
         products: {
@@ -513,6 +493,11 @@ export const resources = {
         permissionError: "Uburenganzira bwa kamera bwanze cyangwa kamera ntibonetse.",
         failed: "Gusobanura ikimenyetso byanze.",
       },
+      notFound: {
+        title: "Paji ntiyabonetse",
+        body: "Paji ushaka ntibaho cyangwa yarimuwe.",
+        cta: "Subira ahabanza",
+      },
       about: {
         goals: {
           eyebrow: "Gahunda yacu",
@@ -661,31 +646,6 @@ export const resources = {
               "Uburyo bwacu bwo gukora icyitegererezo butuma dushobora kugerageza no kunoza ibiranga kugerwaho vuba. Dukorana bya hafi n'abakoresha kugira ngo ibisubizo bihuze n'ibyo isi nyayo isaba binyuze mu bitekerezo n'isubiramo bihoraho.",
           },
         },
-        nodes: {
-          eyebrow: "Serivisi zacu",
-          heading: "SERIVISI ZACU",
-          subheading: "IBYO DUKORA",
-          configuration: {
-            title: "Igenamiterere rya sisitemu",
-            body: "Dutunganya uburyo bufasha, dashboard, n'igenamiterere ry'ubushobozi hakurikijwe umwirondoro wa buri mukoresha.",
-          },
-          support: {
-            title: "Ubufasha n'itumanaho",
-            body: "Dufasha amatsinda n'abakoresha kuvugana neza binyuze mu mahugurwa, ubufasha, n'igishushanyo cya serivisi kirimo bose.",
-          },
-          quality: {
-            title: "Ubuziranenge n'indashyikirwa",
-            body: "Dupima uburyo bworoshye bwo gukoresha, kugerwaho, n'ubuziranenge bwa serivisi mbere y'uko ibicuruzwa bigera ku bantu babikeneye.",
-          },
-          data: {
-            title: "Amakuru n'iterambere",
-            body: "Dukoresha ibitekerezo ku bicuruzwa n'ubumenyi ku bushobozi bwo kugerwaho kugira ngo tunoze ingaruka nziza uko igihe gihita.",
-          },
-          community: {
-            title: "Itsinda n'abaturage",
-            body: "Twubakana n'abakoresha, abarezi, amashuri, n'abafatanyabikorwa kugira ngo ikoranabuhanga rifasha rihuze n'ubuzima nyabwo.",
-          },
-        },
         products: {
           eyebrow: "Ibicuruzwa byacu",
           title: "Ibisubizo turimo kubaka",
@@ -755,6 +715,11 @@ export const resources = {
       writing: { title: "Assistant d'ecriture Gemini", draft: "Texte ou brouillon dicte", mode: "Mode", simplify: "Simplifier", expand: "Developper", formal: "Formel", short: "Court", translate: "Traduire", working: "Traitement...", action: "Aidez-moi a ecrire", failed: "L'assistant d'ecriture a echoue." },
       vision: { title: "Assistance vision Gemini", startCamera: "Demarrer la camera", analyzeScene: "Analyser la scene", speakResult: "Lire le resultat", cameraPreview: "Apercu camera", permissionError: "L'autorisation camera a ete refusee ou indisponible.", failed: "L'analyse visuelle a echoue." },
       sign: { title: "Assistance langue des signes Gemini", startCamera: "Demarrer la camera", interpretGesture: "Interpreter le geste", speakResult: "Lire le resultat", cameraPreview: "Apercu camera du geste", permissionError: "L'autorisation camera a ete refusee ou indisponible.", failed: "L'interpretation du geste a echoue." },
+      notFound: {
+        title: "Page introuvable",
+        body: "La page que vous cherchez n'existe pas ou a ete deplacee.",
+        cta: "Retour a l'accueil",
+      },
       about: {
         goals: {
           eyebrow: "Notre feuille de route",
@@ -903,31 +868,6 @@ export const resources = {
               "Notre processus de prototypage permet de tester et d'affiner rapidement les fonctions d'accessibilite. Nous travaillons etroitement avec les utilisateurs pour que les solutions repondent aux besoins reels, par des retours et des iterations continus.",
           },
         },
-        nodes: {
-          eyebrow: "Nos services",
-          heading: "NOS SERVICES",
-          subheading: "CE QUE NOUS FAISONS",
-          configuration: {
-            title: "Configuration des systemes",
-            body: "Nous configurons les parcours d'assistance, les tableaux de bord et les reglages d'accessibilite selon chaque profil utilisateur.",
-          },
-          support: {
-            title: "Accompagnement et communication",
-            body: "Nous aidons les equipes et les utilisateurs a communiquer clairement par la formation, le support et une conception de service inclusive.",
-          },
-          quality: {
-            title: "Qualite et excellence",
-            body: "Nous testons l'utilisabilite, l'accessibilite et la qualite de service avant que les produits n'atteignent celles et ceux qui en ont besoin.",
-          },
-          data: {
-            title: "Donnees et croissance",
-            body: "Nous utilisons les retours produits et les enseignements d'accessibilite pour ameliorer notre impact dans la duree.",
-          },
-          community: {
-            title: "Equipe et communaute",
-            body: "Nous construisons avec les utilisateurs, les aidants, les ecoles et les partenaires pour que la technologie d'assistance colle a la vie reelle.",
-          },
-        },
         products: {
           eyebrow: "Nos produits",
           title: "Les solutions que nous construisons",
@@ -997,6 +937,11 @@ export const resources = {
       writing: { title: "Msaidizi wa kuandika wa Gemini", draft: "Maandishi au rasimu iliyotamkwa", mode: "Hali", simplify: "Rahisisha", expand: "Panua", formal: "Rasmi", short: "Fupi", translate: "Tafsiri", working: "Inafanya kazi...", action: "Nisaidie kuandika", failed: "Msaidizi wa kuandika ameshindwa." },
       vision: { title: "Msaada wa kuona wa Gemini", startCamera: "Anza kamera", analyzeScene: "Chambua mandhari", speakResult: "Sema matokeo", cameraPreview: "Muonekano wa kamera", permissionError: "Ruhusa ya kamera imekataliwa au haipatikani.", failed: "Uchambuzi wa picha umeshindwa." },
       sign: { title: "Msaada wa lugha ya ishara wa Gemini", startCamera: "Anza kamera", interpretGesture: "Fasiri ishara", speakResult: "Sema matokeo", cameraPreview: "Muonekano wa kamera ya ishara", permissionError: "Ruhusa ya kamera imekataliwa au haipatikani.", failed: "Ufasiri wa ishara umeshindwa." },
+      notFound: {
+        title: "Ukurasa haujapatikana",
+        body: "Ukurasa unaoutafuta haupo au umehamishwa.",
+        cta: "Rudi mwanzo",
+      },
       about: {
         goals: {
           eyebrow: "Ramani yetu",
@@ -1143,31 +1088,6 @@ export const resources = {
             description: "Uendelezaji wa haraka na wa marudio wa vipengele vya ufikivu.",
             details:
               "Mchakato wetu wa sampuli unaruhusu upimaji na uboreshaji wa haraka wa vipengele vya ufikivu. Tunafanya kazi kwa karibu na watumiaji ili suluhisho zikidhi mahitaji halisi kupitia maoni na marudio endelevu.",
-          },
-        },
-        nodes: {
-          eyebrow: "Huduma zetu",
-          heading: "HUDUMA ZETU",
-          subheading: "TUNACHOFANYA",
-          configuration: {
-            title: "Usanidi wa mifumo",
-            body: "Tunasanidi mitiririko saidizi, dashibodi, na mipangilio ya ufikivu kulingana na wasifu wa kila mtumiaji.",
-          },
-          support: {
-            title: "Msaada na mawasiliano",
-            body: "Tunasaidia timu na watumiaji kuwasiliana kwa uwazi kupitia mafunzo, msaada, na ubunifu jumuishi wa huduma.",
-          },
-          quality: {
-            title: "Ubora na umahiri",
-            body: "Tunapima urahisi wa matumizi, ufikivu, na ubora wa huduma kabla bidhaa hazijawafikia wanaozihitaji.",
-          },
-          data: {
-            title: "Data na ukuaji",
-            body: "Tunatumia maoni ya bidhaa na maarifa ya ufikivu kuboresha athari yetu kadri muda unavyosonga.",
-          },
-          community: {
-            title: "Timu na jamii",
-            body: "Tunajenga pamoja na watumiaji, walezi, shule, na washirika ili teknolojia saidizi ilingane na maisha halisi.",
           },
         },
         products: {

@@ -16,8 +16,6 @@ import {
   AudioLines,
   MapPinned,
   Contact,
-  LogIn,
-  UserPlus,
   LayoutDashboard,
 } from "lucide-react";
 import { useAuth } from "../hooks/useAuth";

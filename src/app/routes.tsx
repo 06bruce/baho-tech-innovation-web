@@ -1,6 +1,7 @@
 import { lazy } from "react";
 import { createBrowserRouter } from "react-router";
 import { Root } from "./components/Root";
+import { NotFound } from "./components/NotFound";
 import { RequireAuth } from "./guards/RequireAuth";
 import { RequireAdmin } from "./guards/RequireAdmin";
 import { RequireDisability } from "./guards/RequireDisability";
@@ -35,6 +36,7 @@ export const router = createBrowserRouter([
       { path: "contact", Component: Contact },
       { path: "login", Component: LoginPage },
       { path: "register", Component: RegisterPage },
+      { path: "*", Component: NotFound },
     ],
   },
   {

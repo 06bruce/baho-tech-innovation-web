@@ -27,7 +27,15 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.includes('node_modules')) return 'vendor';
+          if (!id.includes('node_modules')) return;
+          // Keep route-only libraries out of the chunk every page must load.
+          // Leaflet ships only with /contact; splitting it keeps the homepage lean.
+          if (id.includes('leaflet')) return 'maps';
+          if (id.includes('recharts') || id.includes('d3-')) return 'charts';
+          if (id.includes('motion')) return 'motion';
+          if (id.includes('i18next')) return 'i18n';
+          if (id.includes('lucide-react')) return 'icons';
+          return 'vendor';
         },
       },
     },

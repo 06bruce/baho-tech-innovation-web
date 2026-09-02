@@ -1,1 +1,0 @@
-import{a as e}from"./index-Ci_u71UV.js";const t={getOverview:t=>e("/admin/stats",{method:"GET",authToken:t}),getUsers:(t,s={})=>e("/admin/users",{method:"GET",authToken:t,query:s}),getUser:(t,s)=>e(`/admin/users/${s}`,{method:"GET",authToken:t})};export{t as a};

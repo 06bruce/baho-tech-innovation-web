@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { RouterProvider } from 'react-router';
 import { router } from './routes';
 import { AuthProvider } from './hooks/useAuth';
+import { RootErrorBoundary } from './components/RootErrorBoundary';
 import { getApiBaseUrl, checkApiHealth } from './services/apiClient';
 import './i18n';
 
@@ -34,8 +35,10 @@ export default function App() {
   }, []);
 
   return (
-    <AuthProvider>
-      <RouterProvider router={router} />
-    </AuthProvider>
+    <RootErrorBoundary>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
+    </RootErrorBoundary>
   );
 }
