@@ -1,8 +1,46 @@
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router";
-import { teamMembers } from "../data/team";
+import { teamMembers as fallbackTeamMembers, type TeamMember } from "../data/team";
+import { contentService, type ContentItem } from "../services/contentService";
+
+function mapContentToTeamMember(item: ContentItem): TeamMember {
+  const slug = item.slug || (item.name || item.title || "team-member").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  return {
+    slug,
+    name: item.name || item.title || "Team Member",
+    role: item.role || "Team Member",
+    bio: item.bio || item.description || "",
+    story: item.story.length ? item.story : item.content ? [item.content] : ["Baho Tech team member."],
+    image: item.image || fallbackTeamMembers[0]?.image || "",
+  };
+}
 
 export function TeamMemberProfile() {
   const { slug } = useParams();
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(fallbackTeamMembers);
+
+  useEffect(() => {
+    let isActive = true;
+
+    contentService
+      .listPublic("team")
+      .then((response) => {
+        if (!isActive) return;
+        if (response.items.length > 0) {
+          setTeamMembers(response.items.map(mapContentToTeamMember));
+        }
+      })
+      .catch(() => {
+        if (isActive) {
+          setTeamMembers(fallbackTeamMembers);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   const member = teamMembers.find((person) => person.slug === slug);
 
   if (!member) {

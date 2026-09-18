@@ -19,6 +19,7 @@ const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard").then(m 
 const AdminUsersPage = lazy(() => import("./pages/admin/AdminUsersPage").then(m => ({ default: m.AdminUsersPage })));
 const AdminUserDetailsPage = lazy(() => import("./pages/admin/AdminUserDetailsPage").then(m => ({ default: m.AdminUserDetailsPage })));
 const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage").then(m => ({ default: m.AdminSettingsPage })));
+const AdminContentPage = lazy(() => import("./pages/admin/AdminContentPage").then(m => ({ default: m.AdminContentPage })));
 const BlindDashboard = lazy(() => import("./pages/dashboard/BlindDashboard").then(m => ({ default: m.BlindDashboard })));
 const DeafDashboard = lazy(() => import("./pages/dashboard/DeafDashboard").then(m => ({ default: m.DeafDashboard })));
 const MuteDashboard = lazy(() => import("./pages/dashboard/MuteDashboard").then(m => ({ default: m.MuteDashboard })));
@@ -52,6 +53,7 @@ export const router = createBrowserRouter([
               { path: "/admin/dashboard", Component: AdminDashboard },
               { path: "/admin/users", Component: AdminUsersPage },
               { path: "/admin/users/:id", Component: AdminUserDetailsPage },
+              { path: "/admin/content", Component: AdminContentPage },
               { path: "/admin/settings", Component: AdminSettingsPage },
             ],
           },

@@ -4,7 +4,7 @@ import type { DisabilityCategory } from "../utils/disability";
 export type UserRole = "admin" | "user";
 
 export type AuthUser = {
-  id: number;
+  id: string;
   fullName: string;
   email: string;
   role: UserRole;

@@ -1,16 +1,51 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router";
 import { Eye, Heart, Linkedin, Mail } from "lucide-react";
-import { teamMembers } from "../data/team";
+import { teamMembers as fallbackTeamMembers, type TeamMember } from "../data/team";
 import { GoalsRoadmap } from "./GoalsRoadmap";
 import { Link } from "react-router";
 import ceoImage from "../../../images/Zera.jpeg";
+import { contentService, type ContentItem } from "../services/contentService";
+
+function mapContentToTeamMember(item: ContentItem): TeamMember {
+  const slug = item.slug || (item.name || item.title || "team-member").toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  return {
+    slug,
+    name: item.name || item.title || "Team Member",
+    role: item.role || "Team Member",
+    bio: item.bio || item.description || "",
+    story: item.story.length ? item.story : item.content ? [item.content] : ["Baho Tech team member."],
+    image: item.image || ceoImage,
+  };
+}
 
 export function About() {
   const location = useLocation();
   const teamCarouselRef = useRef<HTMLDivElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+  const [teamMembers, setTeamMembers] = useState<TeamMember[]>(fallbackTeamMembers);
+
+  useEffect(() => {
+    let isActive = true;
+
+    contentService
+      .listPublic("team")
+      .then((response) => {
+        if (!isActive || response.items.length === 0) return;
+        setTeamMembers(response.items.map(mapContentToTeamMember));
+      })
+      .catch(() => {
+        if (isActive) {
+          setTeamMembers(fallbackTeamMembers);
+        }
+      });
+
+    return () => {
+      isActive = false;
+    };
+  }, []);
+
   const ceo = teamMembers.find((member) => member.slug === "nancy-teta-kwizera");
 
   const scrollTeam = (direction: "prev" | "next") => {

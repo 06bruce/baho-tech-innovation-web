@@ -1,6 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
 import type { ComponentType } from "react";
-import { Eye, Headphones, LayoutDashboard, LogOut, MessageSquareText, Mic, MoveRight, Settings, Users } from "lucide-react";
+import { Eye, Headphones, LayoutDashboard, LogOut, MessageSquareText, Mic, MoveRight, Newspaper, Settings, Users } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 import {
   disabilityDashboardPaths,
@@ -13,6 +13,7 @@ import { LanguageSwitcher } from "../LanguageSwitcher";
 import { VoiceCommandPanel } from "../../features/voice/VoiceCommandPanel";
 import { AiAssistantPanel } from "../../features/ai/AiAssistantPanel";
 import { useTranslation } from "react-i18next";
+import { getVoiceCommandsEnabled, isMainAdmin } from "../../utils/voiceSettings";
 
 const userLinks: Array<{ labelKey: string; path: string; category: DisabilityCategory; icon: ComponentType<{ className?: string }> }> = [
   { labelKey: "dashboard.blindService", path: disabilityDashboardPaths.blind, category: "blind", icon: Eye },
@@ -31,6 +32,7 @@ export function DashboardLayout() {
   const { user, logout } = useAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const voiceCommandsEnabled = user ? getVoiceCommandsEnabled() && isMainAdmin(user) : false;
   const availableLinks =
     user?.role === "admin" ? userLinks : userLinks.filter((link) => link.category === user?.disabilityCategory);
 
@@ -64,6 +66,12 @@ export function DashboardLayout() {
             <NavLink to="/admin/users" className={dashboardLinkClass}>
               <Users className="h-5 w-5" aria-hidden="true" />
               {t("dashboard.userManagement")}
+            </NavLink>
+          )}
+          {user?.role === "admin" && (
+            <NavLink to="/admin/content" className={dashboardLinkClass}>
+              <Newspaper className="h-5 w-5" aria-hidden="true" />
+              Content CMS
             </NavLink>
           )}
           {user?.role === "admin" && (
@@ -116,9 +124,23 @@ export function DashboardLayout() {
         </header>
 
         <main className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-          <div className="mb-6">
-            <VoiceCommandPanel />
-          </div>
+          {voiceCommandsEnabled ? (
+            <div className="mb-6">
+              <VoiceCommandPanel />
+            </div>
+          ) : (
+            <div className="mb-6 rounded-3xl border border-[#d8e4ec] bg-white p-5 text-sm text-gray-600 shadow-sm">
+              <div className="flex items-center justify-between gap-3">
+                <div>
+                  <p className="text-base font-semibold text-gray-950">Voice commands</p>
+                  <p className="mt-1">Disabled by default. Only the main admin can enable it from settings.</p>
+                </div>
+                <span className="rounded-full border border-gray-300 bg-[#F5F7FA] px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-gray-500">
+                  Off
+                </span>
+              </div>
+            </div>
+          )}
           <div className="mb-6">
             <AiAssistantPanel />
           </div>
